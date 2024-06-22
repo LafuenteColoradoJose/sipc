@@ -1,6 +1,6 @@
 <template>
     <div :class="{'theme-dark': theme === 'dark', 'theme-light': theme === 'light'}" >
-        <form class="space-y-4">
+        <form class="flex flex-wrap justify-between items-center m-2 gap-4">
             <div>
                 <label for="age" class="block text-sm font-medium text-gray-700">Edad</label>
                 <input type="number" id="age" v-model="age" class="input input-bordered">
@@ -96,8 +96,14 @@
                     <option value="1">Sí</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-neutral">Enviar</button>
         </form>
+        <div class="flex justify-center mt-8">
+            <button type="submit" class="btn btn-neutral">Enviar</button>
+        </div>
+        <div class="mt-8">
+            <label class="text-2xl font-semibold">Resultado</label>
+            <p>Probabilidad de enfermedad cardíaca: {{ heartDisease }}</p>
+        </div>
     </div>
 </template>
 

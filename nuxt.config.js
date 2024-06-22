@@ -11,6 +11,8 @@ export default defineNuxtConfig({
   css: ['@/assets/css/main.css'],
   modules: [
     '@nuxtjs/tailwindcss',
+    "@nuxt/fonts", 
+    "@nuxt/icon",
 
   ],
   postcss: {
