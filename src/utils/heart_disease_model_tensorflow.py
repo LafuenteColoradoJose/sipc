@@ -94,3 +94,4 @@ print('La predicción es:', prediccion)
 
 # # Guardar el modelo
 modelo.save('heart_disease_model.keras')
+modelo.save('heart_disease_model.h5')

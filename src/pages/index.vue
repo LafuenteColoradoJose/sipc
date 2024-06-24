@@ -33,8 +33,7 @@
       <h1 class="text-6xl font-semibold">S.I.P.C.</h1>
       <h2 class="text-2xl font-light text-center">Sistema Inteligente de Predicción Cardiovascular</h2>
     </div>
-    <!-- <Form /> -->
-    <FormPrueba />
+    <Form />
   </main>
 
   </html>
@@ -45,7 +44,6 @@
 import '@fontsource-variable/onest';
 import Form from '@/components/Form.vue';
 import { ref, provide } from 'vue';
-import FormPrueba from '~/components/FormPrueba.vue';
 
 const theme = ref('light');
 provide('theme', theme);
