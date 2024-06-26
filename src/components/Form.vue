@@ -1,121 +1,11 @@
 <template>
     <div :class="{ 'theme-dark': theme === 'dark', 'theme-light': theme === 'light' }">
-        <!-- <form @submit.prevent="predict" class="flex flex-wrap justify-between items-center m-2 gap-4">
-            <div>
-                <label for="age" class="block text-sm font-medium text-gray-700">Edad</label>
-                <input type="number" id="age" v-model="age" class="input input-bordered">
-            </div>
-            <div>
-                <label for="gender" class="block text-sm font-medium text-gray-700">Género</label>
-                <select id="gender" v-model="gender" class="select select-bordered">
-                    <option value="Male">Masculino</option>
-                    <option value="Female">Femenino</option>
-                </select>
-            </div>
-            <div>
-                <label for="cholesterol" class="block text-sm font-medium text-gray-700">Colesterol</label>
-                <input type="number" id="cholesterol" v-model="cholesterol" class="input input-bordered">
-            </div>
-            <div>
-                <label for="bloodPressure" class="block text-sm font-medium text-gray-700">Presión Arterial</label>
-                <input type="number" id="bloodPressure" v-model="bloodPressure" class="input input-bordered">
-            </div>
-            <div>
-                <label for="heartRate" class="block text-sm font-medium text-gray-700">Frecuencia Cardíaca</label>
-                <input type="number" id="heartRate" v-model="heartRate" class="input input-bordered">
-            </div>
-            <div>
-                <label for="smoking" class="block text-sm font-medium text-gray-700">Fumador</label>
-                <select id="smoking" v-model="smoking" class="select select-bordered">
-                    <option value="Never">Nunca</option>
-                    <option value="Former">Anteriormente</option>
-                    <option value="Current">Actualmente</option>
-                </select>
-            </div>
-            <div>
-                <label for="alcoholIntake" class="block text-sm font-medium text-gray-700">Consumo de Alcohol</label>
-                <select id="alcoholIntake" v-model="alcoholIntake" class="select select-bordered">
-                    <option value="None">Ninguno</option>
-                    <option value="Moderate">Moderado</option>
-                    <option value="Heavy">Pesado</option>
-                </select>
-            </div>
-            <div>
-                <label for="exerciseHours" class="block text-sm font-medium text-gray-700">Horas de Ejercicio</label>
-                <input type="number" id="exerciseHours" v-model="exerciseHours" class="input input-bordered">
-            </div>
-            <div>
-                <label for="familyHistory" class="block text-sm font-medium text-gray-700">Historial Familiar</label>
-                <select id="familyHistory" v-model="familyHistory" class="select select-bordered">
-                    <option value="Yes">Sí</option>
-                    <option value="No">No</option>
-                </select>
-            </div>
-            <div>
-                <label for="diabetes" class="block text-sm font-medium text-gray-700">Diabetes</label>
-                <select id="diabetes" v-model="diabetes" class="select select-bordered">
-                    <option value="Yes">Sí</option>
-                    <option value="No">No</option>
-                </select>
-            </div>
-            <div>
-                <label for="obesity" class="block text-sm font-medium text-gray-700">Obesidad</label>
-                <select id="obesity" v-model="obesity" class="select select-bordered">
-                    <option value="Yes">Sí</option>
-                    <option value="No">No</option>
-                </select>
-            </div>
-            <div>
-                <label for="stressLevel" class="block text-sm font-medium text-gray-700">Nivel de Estrés</label>
-                <input type="number" id="stressLevel" v-model="stressLevel" class="input input-bordered">
-            </div>
-            <div>
-                <label for="bloodSugar" class="block text-sm font-medium text-gray-700">Azúcar en Sangre</label>
-                <input type="number" id="bloodSugar" v-model="bloodSugar" class="input input-bordered">
-            </div>
-            <div>
-                <label for="exerciseInducedAngina" class="block text-sm font-medium text-gray-700">Angina Inducida por
-                    Ejercicio</label>
-                <select id="exerciseInducedAngina" v-model="exerciseInducedAngina" class="select select-bordered">
-                    <option value="Yes">Sí</option>
-                    <option value="No">No</option>
-                </select>
-            </div>
-            <div>
-                <label for="chestPainType" class="block text-sm font-medium text-gray-700">Tipo de Dolor de
-                    Pecho</label>
-                <select id="chestPainType" v-model="chestPainType" class="select select-bordered">
-                    <option value="Typical Angina">Angina Típica</option>
-                    <option value="Atypical Angina">Angina Atípica</option>
-                    <option value="Non-anginal Pain">Dolor No Anginal</option>
-                    <option value="Asymptomatic">Asintomático</option>
-                </select>
-            </div>
-            <div>
-                <label for="heartDisease" class="block text-sm font-medium text-gray-700">Enfermedad Cardíaca</label>
-                <select id="heartDisease" v-model="heartDisease" class="select select-bordered">
-                    <option value="0">No</option>
-                    <option value="1">Sí</option>
-                </select>
-            </div>
-            <div class="flex justify-center mt-8">
-                <button type="submit" class="btn btn-neutral">Enviar</button>
-            </div>
-        </form> -->
-
-
-
-        <!-- <div class="mt-8">
-            <label class="text-2xl font-semibold">Resultado</label>
-            <p>Probabilidad de enfermedad cardíaca: {{ heartDisease }}</p>
-        </div> -->
-
         <div>
             <h1>Predicción del riesgo de enfermedades cardíacas</h1>
             <form @submit.prevent="predictHeartDisease" class="flex flex-wrap justify-between items-center m-2 gap-4">
                 <div class="flex gap-2">
                     <label>Edad</label>
-                    <input v-model="age" label="Edad" type="number" />
+                    <input min="0" v-model="age" label="Edad" type="number"  />
                 </div>
                 <div class="flex gap-2">
                     <label>Género</label>
@@ -126,15 +16,15 @@
                 </div>
                 <div class="flex gap-2">
                     <label>Colesterol</label>
-                    <input v-model="cholesterol" label="Colesterol" type="number" />
+                    <input min="0" v-model="cholesterol" label="Colesterol" type="number" />
                 </div>
                 <div class="flex gap-2">
                     <label>Presión Arterial</label>
-                    <input v-model="bloodPressure" label="Presión Arterial" type="number" />
+                    <input min="0" v-model="bloodPressure" label="Presión Arterial" type="number" />
                 </div>
                 <div class="flex gap-2">
                     <label>Frecuencia Cardíaca</label>
-                    <input v-model="heartRate" label="Frecuencia Cardíaca" type="number" />
+                    <input min="0" v-model="heartRate" label="Frecuencia Cardíaca" type="number" />
                 </div>
                 <div class="flex gap-2">
                     <label>Fumador</label>
@@ -154,22 +44,22 @@
                 </div>
                 <div class="flex gap-2">
                     <label>Horas de Ejercicio</label>
-                    <input v-model="exerciseHours" label="Horas de Ejercicio" type="number" />
+                    <input min="0" v-model="exerciseHours" label="Horas de Ejercicio" type="number" />
                 </div>
-               <div class="flex gap-2">
-                     <label>Historial Familiar</label>
-                   <select v-model="familyHistory" label="Historial Familiar">
-                       <option value=0>No</option>
-                       <option value=1>Sí</option>
-                   </select>
-               </div>
-               <div class="flex gap-2">
-                     <label>Diabetes</label>
-                     <select v-model="diabetes" label="Diabetes">
-                          <option value=0>No</option>
-                          <option value=1>Sí</option>
-                     </select>
-               </div>
+                <div class="flex gap-2">
+                    <label>Historial Familiar</label>
+                    <select v-model="familyHistory" label="Historial Familiar">
+                        <option value=0>No</option>
+                        <option value=1>Sí</option>
+                    </select>
+                </div>
+                <div class="flex gap-2">
+                    <label>Diabetes</label>
+                    <select v-model="diabetes" label="Diabetes">
+                        <option value=0>No</option>
+                        <option value=1>Sí</option>
+                    </select>
+                </div>
                 <div class="flex gap-2">
                     <label>Obesidad</label>
                     <select v-model="obesity" label="Obesidad">
@@ -179,11 +69,11 @@
                 </div>
                 <div class="flex gap-2">
                     <label>Nivel de Estrés</label>
-                    <input v-model="stressLevel" label="Nivel de Estrés" type="number" />
+                    <input min="0" v-model="stressLevel" label="Nivel de Estrés" type="number" />
                 </div>
                 <div class="flex gap-2">
                     <label>Azúcar en Sangre</label>
-                    <input v-model="bloodSugar" label="Azúcar en Sangre" type="number" />
+                    <input min="0" v-model="bloodSugar" label="Azúcar en Sangre" type="number" />
                 </div>
                 <div class="flex gap-2">
                     <label>Angina Inducida por Ejercicio</label>
@@ -201,24 +91,72 @@
                         <option value=3>Asintomático</option>
                     </select>
                 </div>
-                <button type="submit">Predecir riesgo</button>
+                <button class="btn btn-primary border-slate-700" type="submit">Predecir riesgo</button>
+                <button class="btn btn-primary border-slate-700" @click="dataReset" >Resetear datos</button>
+                
             </form>
-            <p v-if="predictionResult">Riesgo predicho: {{ predictionResult }}</p>
+            <div>
+            <div class="flex flex-row items-center gap-3 mb-2">
+                <p class="text-lg font-semibold">Riesgo predicho:</p>
+                <p class="text-lg font-semibold">{{predictionResult}} %</p>
+            </div>
+            <div class="flex flex-col justify-center items-center text-xs">
+                <span class="text-center">Datos introducidos:</span>
+                <div class="flex flex-row justify-between gap-6">
+                    <ul>
+                        <li>Edad: {{age}}</li>
+                        <li>Género: {{gender}}</li>
+                        <li>Colesterol: {{cholesterol}}</li>
+                        <li>Presión Arterial: {{bloodPressure}}</li>
+                        <li>Frecuencia Cardíaca: {{heartRate}}</li>
+                        <li>Fumador: {{smoking}}</li>
+                        <li>Consumo de alcohol: {{alcoholIntake}}</li>
+                    </ul>
+                    <ul>
+                        <li>Horas de Ejercicio: {{exerciseHours}}</li>
+                        <li>Historial Familiar: {{familyHistory}}</li>
+                        <li>Diabetes: {{diabetes}}</li>
+                        <li>Obesidad: {{obesity}}</li>
+                        <li>Nivel de Estrés: {{stressLevel}}</li>
+                        <li>Azúcar en Sangre: {{bloodSugar}}</li>
+                    </ul>
+                </div>
+            </div>
         </div>
+        </div>
+
+       
 
     </div>
 </template>
 
 <script setup>
-import * as tf from '@tensorflow/tfjs';
-import Papa from 'papaparse';
 import { inject, ref } from 'vue';
+// import * as tf from '@tensorflow/tfjs';
+
+useHead({
+    title: 'S.I.P.C.',
+    meta: [
+        {
+            name: 'description',
+            content: 'Sistema Inteligente de Predicción Cardiovascular',
+        },
+    ],
+    script: [
+        {
+            src: "https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js",
+        },
+    ],
+});
 
 const theme = inject('theme');
-const inpust = ref(null);
-const outputs = ref(null);
-const xs = ref(null);
-const ys = ref(null);
+
+let inpust = ref(null);
+let outputs = ref(null);
+let inputTensor = ref(null);
+let outputTensor = ref(null);
+let h = ref(null);
+let model = ref(null);
 
 const age = ref(null);
 const gender = ref(null);
@@ -239,125 +177,227 @@ const heartDisease = ref(null);
 const predictionResult = ref(null);
 
 async function predictHeartDisease() {
-    await createModel();
-    predictionResult.value = prediction.dataSync()[0];
+    console.log('pulsado predictHeartDisease');
+    
+    await makePrediction({
+        age: age.value,
+        gender: gender.value,
+        cholesterol: cholesterol.value,
+        bloodPressure: bloodPressure.value,
+        heartRate: heartRate.value,
+        smoking: smoking.value,
+        alcoholIntake: alcoholIntake.value,
+        exerciseHours: exerciseHours.value,
+        familyHistory: familyHistory.value,
+        diabetes: diabetes.value,
+        obesity: obesity.value,
+        stressLevel: stressLevel.value,
+        bloodSugar: bloodSugar.value,
+        exerciseInducedAngina: exerciseInducedAngina.value,
+        chestPainType: chestPainType.value,
+
+    });
 
 }
 
 onMounted(() => {
     loadData();
+    createModel();
+    trainModel(inputTensor, outputTensor);
+
+    // // Asegúrate de que esta parte del código se ejecuta después de que TensorFlow.js esté cargado
+    // // Aquí puedes inicializar tus tensores o realizar operaciones con ellos
+    // inputTensor = tf.tensor2d([[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]], [1, 15]);
+    // outputTensor = tf.tensor2d([[1]], [1, 1]);
+
+    // console.log(inputTensor.shape); // Debería mostrar [1, 15]
+    // console.log(outputTensor.shape); // Debería mostrar [1, 1]
 });
 
+async function dataReset() {
+    age.value = null,
+    gender.value = null,
+    cholesterol.value = null,
+    bloodPressure.value = null,
+    heartRate.value = null,
+    smoking.value = null,
+    alcoholIntake.value = null,
+    exerciseHours.value = null,
+    familyHistory.value = null,
+    diabetes.value = null,
+    obesity.value = null,
+    stressLevel.value = null,
+    bloodSugar.value = null,
+    exerciseInducedAngina.value = null,
+    chestPainType.value = null,
+    heartDisease.value = null,
+    predictionResult.value = null;
+}
+
 async function loadData() {
-    const response = await fetch('heart_disease_dataset.csv');
+    const response = await fetch('heart_disease_dataset_trans.csv');
     const data = await response.text();
     const rows = data.split(/\r\n|\n/).slice(1);
 
-    // Mapeos
-    const genderMapping = { Male: 0, Female: 1 };
-    const smokingMapping = { Never: 0, Former: 1, Current: 2 };
-    const alcoholIntakeMapping = { None: 0, Moderate: 1, Heavy: 2 };
-    const familyHistoryMapping = { No: 0, Yes: 1 };
-    const diabetesMapping = { No: 0, Yes: 1 };
-    const obesityMapping = { No: 0, Yes: 1 };
-    const exerciseInducedAnginaMapping = { No: 0, Yes: 1 };
-    const chestPainTypeMapping = { 'Typical Angina': 0, 'Atypical Angina': 1, 'Non-anginal Pain': 2, 'Asymptomatic': 3 };
-
-    // Definiciones de los índices de las columnas basadas en tu tabla
-    const genderIndex = 1;
-    const smokingIndex = 5;
-    const alcoholIntakeIndex = 6;
-    const familyHistoryIndex = 8;
-    const diabetesIndex = 9;
-    const obesityIndex = 10;
-    const exerciseInducedAnginaIndex = 13;
-    const chestPainTypeIndex = 14;
-
-    const processedData = rows.map(row => {
-        const items = row.split(',');
-        items[genderIndex] = genderMapping[items[genderIndex]];
-        items[smokingIndex] = smokingMapping[items[smokingIndex]];
-        items[alcoholIntakeIndex] = alcoholIntakeMapping[items[alcoholIntakeIndex]];
-        items[familyHistoryIndex] = familyHistoryMapping[items[familyHistoryIndex]];
-        items[diabetesIndex] = diabetesMapping[items[diabetesIndex]];
-        items[obesityIndex] = obesityMapping[items[obesityIndex]];
-        items[exerciseInducedAnginaIndex] = exerciseInducedAnginaMapping[items[exerciseInducedAnginaIndex]];
-        items[chestPainTypeIndex] = chestPainTypeMapping[items[chestPainTypeIndex]];
-
-        // Convertir el resto de los elementos a números si es posible
-        return items.map((item, index) => {
-            if ([genderIndex, smokingIndex, alcoholIntakeIndex, familyHistoryIndex, diabetesIndex, obesityIndex, exerciseInducedAnginaIndex, chestPainTypeIndex].includes(index)) {
-                return item; // Estos ya han sido convertidos a sus valores mapeados
-            }
-            return isNaN(Number(item)) ? item : Number(item);
-        });
+    const processedRows = rows.map((row) => {
+        const values = row.split(","); // Asumiendo que es un CSV estándar separado por comas
+        return {
+            Age: values[0],
+            Gender: values[1],
+            Cholesterol: values[2],
+            BloodPressure: values[3],
+            HeartRate: values[4],
+            Smoking: values[5],
+            AlcoholIntake: values[6],
+            ExerciseHours: values[7],
+            FamilyHistory: values[8],
+            Diabetes: values[9],
+            Obesity: values[10],
+            StressLevel: values[11],
+            BloodSugar: values[12],
+            ExerciseInducedAngina: values[13],
+            ChestPainType: values[14],
+            HeartDisease: values[15], // Asegúrate de que este es el índice correcto
+        };
     });
+    console.log(processedRows[0]); // Debería mostrar el primer objeto en el array
 
-    /// Separar en características (xs) y etiquetas (ys)
-    xs.value = processedData.map(row => row.slice(0, -1)); // Todas menos la última columna
-    ys.value = processedData.map(row => row.slice(-1)); // Solo la última columna
+    // Ahora puedes usar `map` en `processedRows`, que es un array de objetos
+    const inputs = processedRows
+        .map((row) => [
+            parseFloat(row.Age),
+            parseFloat(row.Gender),
+            parseFloat(row.Cholesterol),
+            parseFloat(row.BloodPressure),
+            parseFloat(row.HeartRate),
+            parseFloat(row.Smoking),
+            parseFloat(row.AlcoholIntake),
+            parseFloat(row.ExerciseHours),
+            parseFloat(row.FamilyHistory),
+            parseFloat(row.Diabetes),
+            parseFloat(row.Obesity),
+            parseFloat(row.StressLevel),
+            parseFloat(row.BloodSugar),
+            parseFloat(row.ExerciseInducedAngina),
+            parseFloat(row.ChestPainType),
+        ])
+        .filter((row) => row.every((value) => !isNaN(value)));
 
-    // console.log(xs.value);
-    // console.log(ys.value);
+    const outputs = processedRows
+        .map((row) => [parseFloat(row.HeartDisease)])
+        .filter((output) => !isNaN(output[0]));
+
+    console.log(inputs);
+    console.log(outputs);
 
     // Convertir a tensores
-    inpust.value = tf.tensor2d(xs.value);
-    outputs.value = tf.tensor2d(ys.value);
+    inputTensor = tf.tensor2d(inputs);
+    outputTensor = tf.tensor2d(outputs);
+
+    // Asegúrate de que las dimensiones de los tensores coincidan con las expectativas del modelo
+    console.log(inputTensor.shape); // Debería mostrar [num_samples, 15]
+    console.log(outputTensor.shape); // Debería mostrar [num_samples, 1]
+
+    // console.log(inputTensor);
+    // console.log(outputTensor);
 
 }
 
 async function createModel() {
-
-    const model = tf.sequential();
-
+    model = tf.sequential();
+    console.log(model);
     const hidden = tf.layers.dense({
-        units: 10,
-        inputShape: [15],
-        activation: 'tanh'
+        units: 10, // Número de nodos en la capa oculta
+        inputShape: [15], // Forma de los datos de entrada
+        activation: "tanh", // Función de activación
     });
 
     model.add(hidden);
+    console.log(model);
 
     const output = tf.layers.dense({
-        units: 1,
-        inputShape: [10],
-        activation: 'tanh'
+        units: 1, // Número de nodos en la capa de salida
+        // inputShape: [10], // Forma de los datos de entrada para esta capa
+        activation: "sigmoid", // Función de activación para clasificación binaria
     });
 
     model.add(output);
+    console.log(model);
 
-    model.compile({
-        optimizer: 'sgd',
-        loss: 'meanSquaredError'
+    await model.compile({
+        optimizer: "sgd", // Optimizador
+        loss: "binaryCrossentropy", // Función de pérdida para clasificación binaria
     });
 
-    const configTrain = {
-        epochs: 100,
-        shuffle: true
-    }
-
-    h = await model.fit(inpust.value, outputs.value, configTrain);
-    console.log(h.history.loss[h.history.loss.length - 1]);
-
-    let prediction = model.predict(tf.tensor2d([
-        [age.value],
-        [cholesterol.value],
-        [bloodPressure.value],
-        [heartRate.value],
-        [smoking.value],
-        [alcoholIntake.value],
-        [exerciseHours.value],
-        [familyHistory.value],
-        [diabetes.value],
-        [obesity.value],
-        [stressLevel.value],
-        [bloodSugar.value],
-        [exerciseInducedAngina.value],
-        [chestPainType.value],
-
-    ]));
+    console.log(model);
 
 }
+
+
+async function trainModel(inputTensor, outputTensor) {
+    // Verifica que inputTensor y outputTensor no sean undefined o null
+    if (!inputTensor || !outputTensor) {
+        console.error(
+            "trainModel: inputTensor or outputTensor is undefined or null",
+        );
+        return; // Detiene la ejecución de la función
+    }
+
+    // Asegúrate de que inputTensor y outputTensor sean numéricos
+    const numericInputTensor = tf.tensor2d(
+        inputTensor.arraySync().map((row) => convertToNumeric(row)),
+    );
+    const numericOutputTensor = tf.tensor2d(
+        outputTensor.arraySync().map((row) => convertToNumeric(row)),
+    );
+
+    const configTrain = {
+        epochs: 10,
+        shuffle: true,
+        // Añade aquí el resto de la configuración de entrenamiento si es necesario
+    };
+
+    await model.fit(numericInputTensor, numericOutputTensor, configTrain);
+    console.log("Model trained successfully");
+}
+
+
+async function makePrediction(inputData) {
+    console.log('variable inputData:', inputData);
+
+    const inputArray = [
+        inputData.age,
+        inputData.gender,
+        inputData.cholesterol,
+        inputData.bloodPressure,
+        inputData.heartRate,
+        inputData.smoking,
+        inputData.alcoholIntake,
+        inputData.exerciseHours,
+        inputData.familyHistory,
+        inputData.diabetes,
+        inputData.obesity,
+        inputData.stressLevel,
+        inputData.bloodSugar,
+        inputData.exerciseInducedAngina,
+        inputData.chestPainType,
+    ];
+
+     // Convertir el array a un tensor 2D (1 fila con N columnas)
+     const inputTensor = tf.tensor2d([inputArray]);
+
+    // Realizar la predicción
+    let prediction = await model.predict(inputTensor);
+    prediction.print(); // Opcional: imprimir el tensor de predicción en la consola
+
+    // Convertir el tensor de predicción a un valor utilizable
+    const predictionValue = (prediction.arraySync()[0][0] * 100).toFixed(0);
+    console.log(predictionValue);
+
+    // Actualizar el estado de Vue con el resultado
+    predictionResult.value = predictionValue; // Asegúrate de que predictionResult esté definido como ref() en <script setup>
+}
+
 
 </script>
 

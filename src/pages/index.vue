@@ -34,8 +34,10 @@
       <h2 class="text-2xl font-light text-center">Sistema Inteligente de Predicción Cardiovascular</h2>
     </div>
     <Form />
-  </main>
 
+    <strong class="text-center text-xs">Esta aplicación es solo para fines educativos y no debe usarse para predicciones reales.</strong>
+    <strong class="text-center text-xs">Consulte a su médico para asesoramiento profesional.</strong>
+  </main>
   </html>
 </template>
 
@@ -44,6 +46,21 @@
 import '@fontsource-variable/onest';
 import Form from '@/components/Form.vue';
 import { ref, provide } from 'vue';
+
+useHead({
+  title: 'S.I.P.C.',
+  meta: [
+    {
+      name: 'description',
+      content: 'Sistema Inteligente de Predicción Cardiovascular',
+    },
+  ],
+  script: [
+    {
+      src: "https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js",
+    },
+  ],
+});
 
 const theme = ref('light');
 provide('theme', theme);
