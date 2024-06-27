@@ -13,7 +13,7 @@
 <script setup>
 // Supports weights 100-900
 import '@fontsource-variable/onest';
-import Form from '@/components/Form.vue';
+import '@fontsource/roboto';
 import { ref, provide } from 'vue';
 
 useHead({

@@ -1,6 +1,6 @@
 <template>
 
-  <main class="p-4 h-dvh">
+  <main class="p-4 flex flex-col justify-between h-dvh">
     <NavBar />
     <Title />
     <Form />
@@ -18,7 +18,6 @@ import Advise from '~/components/Advise.vue';
 import Form from '~/components/Form.vue';
 
 
-import { ref, watch } from 'vue';
 
 
 

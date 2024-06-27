@@ -6,7 +6,7 @@
             <div class="flex flex-wrap justify-between items-center m-2 gap-4">
                 <div class="flex gap-2">
                     <label>Edad</label>
-                    <input min="0" v-model="age" label="Edad" type="number" />
+                    <input min="0" v-model="age" label="Edad" type="number" class="input input-bordered input-xs w-full max-w-xs" />
                 </div>
                 <div class="flex gap-2">
                     <label>Género</label>

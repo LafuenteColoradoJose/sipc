@@ -7,4 +7,9 @@
 <script setup>
 </script>
 
-<style scoped></style>
+<style scoped>
+
+h2{
+    font-family: 'Roboto', sans-serif;
+}
+</style>
