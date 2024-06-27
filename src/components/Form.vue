@@ -6,30 +6,30 @@
             <div class="flex flex-wrap justify-between items-center m-2 gap-4">
                 <div class="flex gap-2">
                     <label>Edad</label>
-                    <input min="0" v-model="age" label="Edad" type="number" class="input input-bordered input-xs w-full max-w-xs" />
+                    <input class="input input-bordered input-xs w-full max-w-xs" min="0" v-model="age" label="Edad" type="number" />
                 </div>
                 <div class="flex gap-2">
                     <label>Género</label>
-                    <select v-model="gender" label="Género">
+                    <select class="select select-xs w-full max-w-xs" v-model="gender" label="Género">
                         <option value=0>Masculino</option>
                         <option value=1>Femenino</option>
                     </select>
                 </div>
                 <div class="flex gap-2">
                     <label>Colesterol</label>
-                    <input min="0" v-model="cholesterol" label="Colesterol" type="number" />
+                    <input class="input input-bordered input-xs w-full max-w-xs" min="0" v-model="cholesterol" label="Colesterol" type="number" />
                 </div>
                 <div class="flex gap-2">
                     <label>Presión Arterial</label>
-                    <input min="0" v-model="bloodPressure" label="Presión Arterial" type="number" />
+                    <input class="input input-bordered input-xs w-full max-w-xs" min="0" v-model="bloodPressure" label="Presión Arterial" type="number" />
                 </div>
                 <div class="flex gap-2">
                     <label>Frecuencia Cardíaca</label>
-                    <input min="0" v-model="heartRate" label="Frecuencia Cardíaca" type="number" />
+                    <input class="input input-bordered input-xs w-full max-w-xs" min="0" v-model="heartRate" label="Frecuencia Cardíaca" type="number" />
                 </div>
                 <div class="flex gap-2">
                     <label>Fumador</label>
-                    <select v-model="smoking" label="Fumador">
+                    <select class="select select-xs w-full max-w-xs" v-model="smoking" label="Fumador">
                         <option value=0>Nunca</option>
                         <option value=1>Anteriormente</option>
                         <option value=2>Actualmente</option>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="flex gap-2">
                     <label for="">Consumo de alcohol</label>
-                    <select v-model="alcoholIntake" label="Consumo de Alcohol">
+                    <select class="select select-xs w-full max-w-xs" v-model="alcoholIntake" label="Consumo de Alcohol">
                         <option value=0>Ninguno</option>
                         <option value=1>Moderado</option>
                         <option value=2>A menudo</option>
@@ -45,47 +45,47 @@
                 </div>
                 <div class="flex gap-2">
                     <label>Horas de Ejercicio</label>
-                    <input min="0" v-model="exerciseHours" label="Horas de Ejercicio" type="number" />
+                    <input class="input input-bordered input-xs w-full max-w-xs" min="0" v-model="exerciseHours" label="Horas de Ejercicio" type="number" />
                 </div>
                 <div class="flex gap-2">
                     <label>Historial Familiar</label>
-                    <select v-model="familyHistory" label="Historial Familiar">
+                    <select class="select select-xs w-full max-w-xs" v-model="familyHistory" label="Historial Familiar">
                         <option value=0>No</option>
                         <option value=1>Sí</option>
                     </select>
                 </div>
                 <div class="flex gap-2">
                     <label>Diabetes</label>
-                    <select v-model="diabetes" label="Diabetes">
+                    <select class="select select-xs w-full max-w-xs" v-model="diabetes" label="Diabetes">
                         <option value=0>No</option>
                         <option value=1>Sí</option>
                     </select>
                 </div>
                 <div class="flex gap-2">
                     <label>Obesidad</label>
-                    <select v-model="obesity" label="Obesidad">
+                    <select class="select select-xs w-full max-w-xs" v-model="obesity" label="Obesidad">
                         <option value=0>No</option>
                         <option value=1>Sí</option>
                     </select>
                 </div>
                 <div class="flex gap-2">
                     <label>Nivel de Estrés</label>
-                    <input min="0" v-model="stressLevel" label="Nivel de Estrés" type="number" />
+                    <input class="input input-bordered input-xs w-full max-w-xs" min="0" v-model="stressLevel" label="Nivel de Estrés" type="number" />
                 </div>
                 <div class="flex gap-2">
                     <label>Azúcar en Sangre</label>
-                    <input min="0" v-model="bloodSugar" label="Azúcar en Sangre" type="number" />
+                    <input class="input input-bordered input-xs w-full max-w-xs" min="0" v-model="bloodSugar" label="Azúcar en Sangre" type="number" />
                 </div>
                 <div class="flex gap-2">
                     <label>Angina Inducida por Ejercicio</label>
-                    <select v-model="exerciseInducedAngina" label="Angina Inducida por Ejercicio">
+                    <select class="select select-xs w-full max-w-xs" v-model="exerciseInducedAngina" label="Angina Inducida por Ejercicio">
                         <option value=0>No</option>
                         <option value=1>Sí</option>
                     </select>
                 </div>
                 <div class="flex gap-2">
                     <label>Tipo de dolor en el pecho</label>
-                    <select v-model="chestPainType" label="Tipo de dolor en el pecho">
+                    <select class="select select-xs w-full max-w-xs" v-model="chestPainType" label="Tipo de dolor en el pecho">
                         <option value=0>Angina típica</option>
                         <option value=1>Angina atípica</option>
                         <option value=2>Dolor no anginal</option>
