@@ -1,11 +1,12 @@
 <template>
-    <div :class="{ 'theme-dark': theme === 'dark', 'theme-light': theme === 'light' }">
-        <div>
-            <h1>Predicción del riesgo de enfermedades cardíacas</h1>
-            <form @submit.prevent="predictHeartDisease" class="flex flex-wrap justify-between items-center m-2 gap-4">
+
+    <div>
+        <h1>Predicción del riesgo de enfermedades cardíacas</h1>
+        <form @submit.prevent="predictHeartDisease" class="flex flex-col justify-between items-center m-2 gap-4">
+            <div class="flex flex-wrap justify-between items-center m-2 gap-4">
                 <div class="flex gap-2">
                     <label>Edad</label>
-                    <input min="0" v-model="age" label="Edad" type="number"  />
+                    <input min="0" v-model="age" label="Edad" type="number" />
                 </div>
                 <div class="flex gap-2">
                     <label>Género</label>
@@ -91,43 +92,48 @@
                         <option value=3>Asintomático</option>
                     </select>
                 </div>
-                <button class="btn btn-primary border-slate-700" type="submit">Predecir riesgo</button>
-                <button class="btn btn-primary border-slate-700" @click="dataReset" >Resetear datos</button>
-                
-            </form>
-            <div>
+            </div>
+            <div class="flex flex-row justify-center items-center gap-4">
+                <button class="bg-[#1d3461] text-[#b1e0e7]  border-[#6290c8] border-2 rounded-box p-2 font-medium"
+                    type="submit">Predecir riesgo</button>
+                <button class="bg-[#1d3461] text-[#b1e0e7]  border-[#6290c8] border-2 rounded-box p-2 font-medium"
+                    @click="dataReset">Resetear datos</button>
+            </div>
+
+        </form>
+        <div>
             <div class="flex flex-row items-center gap-3 mb-2">
                 <p class="text-lg font-semibold">Riesgo predicho:</p>
-                <p class="text-lg font-semibold">{{predictionResult}} %</p>
+                <p class="text-lg font-semibold">{{ predictionResult }} %</p>
             </div>
             <div class="flex flex-col justify-center items-center text-xs">
                 <span class="text-center">Datos introducidos:</span>
                 <div class="flex flex-row justify-between gap-6">
                     <ul>
-                        <li>Edad: {{age}}</li>
-                        <li>Género: {{gender}}</li>
-                        <li>Colesterol: {{cholesterol}}</li>
-                        <li>Presión Arterial: {{bloodPressure}}</li>
-                        <li>Frecuencia Cardíaca: {{heartRate}}</li>
-                        <li>Fumador: {{smoking}}</li>
-                        <li>Consumo de alcohol: {{alcoholIntake}}</li>
+                        <li>Edad: {{ age }}</li>
+                        <li>Género: {{ gender }}</li>
+                        <li>Colesterol: {{ cholesterol }}</li>
+                        <li>Presión Arterial: {{ bloodPressure }}</li>
+                        <li>Frecuencia Cardíaca: {{ heartRate }}</li>
+                        <li>Fumador: {{ smoking }}</li>
+                        <li>Consumo de alcohol: {{ alcoholIntake }}</li>
                     </ul>
                     <ul>
-                        <li>Horas de Ejercicio: {{exerciseHours}}</li>
-                        <li>Historial Familiar: {{familyHistory}}</li>
-                        <li>Diabetes: {{diabetes}}</li>
-                        <li>Obesidad: {{obesity}}</li>
-                        <li>Nivel de Estrés: {{stressLevel}}</li>
-                        <li>Azúcar en Sangre: {{bloodSugar}}</li>
+                        <li>Horas de Ejercicio: {{ exerciseHours }}</li>
+                        <li>Historial Familiar: {{ familyHistory }}</li>
+                        <li>Diabetes: {{ diabetes }}</li>
+                        <li>Obesidad: {{ obesity }}</li>
+                        <li>Nivel de Estrés: {{ stressLevel }}</li>
+                        <li>Azúcar en Sangre: {{ bloodSugar }}</li>
                     </ul>
                 </div>
             </div>
         </div>
-        </div>
-
-       
-
     </div>
+
+
+
+
 </template>
 
 <script setup>
@@ -178,7 +184,7 @@ const predictionResult = ref(null);
 
 async function predictHeartDisease() {
     console.log('pulsado predictHeartDisease');
-    
+
     await makePrediction({
         age: age.value,
         gender: gender.value,
@@ -216,22 +222,22 @@ onMounted(() => {
 
 async function dataReset() {
     age.value = null,
-    gender.value = null,
-    cholesterol.value = null,
-    bloodPressure.value = null,
-    heartRate.value = null,
-    smoking.value = null,
-    alcoholIntake.value = null,
-    exerciseHours.value = null,
-    familyHistory.value = null,
-    diabetes.value = null,
-    obesity.value = null,
-    stressLevel.value = null,
-    bloodSugar.value = null,
-    exerciseInducedAngina.value = null,
-    chestPainType.value = null,
-    heartDisease.value = null,
-    predictionResult.value = null;
+        gender.value = null,
+        cholesterol.value = null,
+        bloodPressure.value = null,
+        heartRate.value = null,
+        smoking.value = null,
+        alcoholIntake.value = null,
+        exerciseHours.value = null,
+        familyHistory.value = null,
+        diabetes.value = null,
+        obesity.value = null,
+        stressLevel.value = null,
+        bloodSugar.value = null,
+        exerciseInducedAngina.value = null,
+        chestPainType.value = null,
+        heartDisease.value = null,
+        predictionResult.value = null;
 }
 
 async function loadData() {
@@ -383,8 +389,8 @@ async function makePrediction(inputData) {
         inputData.chestPainType,
     ];
 
-     // Convertir el array a un tensor 2D (1 fila con N columnas)
-     const inputTensor = tf.tensor2d([inputArray]);
+    // Convertir el array a un tensor 2D (1 fila con N columnas)
+    const inputTensor = tf.tensor2d([inputArray]);
 
     // Realizar la predicción
     let prediction = await model.predict(inputTensor);
@@ -401,12 +407,4 @@ async function makePrediction(inputData) {
 
 </script>
 
-<style scoped>
-.theme-dark label {
-    color: #b1e0e7;
-}
-
-.theme-light label {
-    color: #007ea8;
-}
-</style>
+<style scoped></style>
