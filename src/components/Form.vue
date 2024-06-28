@@ -2,103 +2,142 @@
 
     <div>
         <h1>Predicción del riesgo de enfermedades cardíacas</h1>
-        <form @submit.prevent="predictHeartDisease" class="flex flex-col justify-between items-center m-2 gap-4">
-            <div class="flex flex-wrap justify-between items-center m-2 gap-4">
-                <div class="flex gap-2">
-                    <label>Edad</label>
-                    <input class="input input-bordered input-xs w-full max-w-xs" min="0" v-model="age" label="Edad" type="number" />
+        <form @submit.prevent="predictHeartDisease" class="flex flex-col justify-between items-center m-2 gap-4 ">
+            <section class="grid grid-cols-1 m-2 gap-6 md:grid-cols-2 lg:grid-cols-3">
+
+                <div id="groups1+2" class="flex flex-col justify-between items-center gap-4">
+
+                    <article id="group1" class="flex flex-col justify-between gap-2">
+                        <div class="flex gap-2">
+                            <label>Edad</label>
+                            <input class="input input-bordered input-xs w-full max-w-xs" min="0" v-model="age"
+                                label="Edad" type="number" />
+                        </div>
+                        <div class="flex gap-2">
+                            <label>Género</label>
+                            <select class="select select-xs w-full max-w-xs" v-model="gender" label="Género">
+                                <option value=0>Masculino</option>
+                                <option value=1>Femenino</option>
+                            </select>
+                        </div>
+                        <div class="flex gap-2">
+                            <label>Colesterol</label>
+                            <input class="input input-bordered input-xs w-full max-w-xs" min="0" v-model="cholesterol"
+                                label="Colesterol" type="number" />
+                        </div>
+                    </article>
+
+                    <article id="group2" class="flex flex-col justify-between gap-2 ">
+                        <div class="flex gap-2">
+                            <label>Presión Arterial</label>
+                            <input class="input input-bordered input-xs w-full max-w-xs" min="0" v-model="bloodPressure"
+                                label="Presión Arterial" type="number" />
+                        </div>
+                        <div class="flex gap-2">
+                            <label>Frecuencia Cardíaca</label>
+                            <input class="input input-bordered input-xs w-full max-w-xs" min="0" v-model="heartRate"
+                                label="Frecuencia Cardíaca" type="number" />
+                        </div>
+                        <div class="flex gap-2">
+                            <label>Fumador</label>
+                            <select class="select select-xs w-full max-w-xs" v-model="smoking" label="Fumador">
+                                <option value=0>Nunca</option>
+                                <option value=1>Anteriormente</option>
+                                <option value=2>Actualmente</option>
+                            </select>
+                        </div>
+                    </article>
                 </div>
-                <div class="flex gap-2">
-                    <label>Género</label>
-                    <select class="select select-xs w-full max-w-xs" v-model="gender" label="Género">
-                        <option value=0>Masculino</option>
-                        <option value=1>Femenino</option>
-                    </select>
+
+                <div id="groups3+4" class="flex flex-col justify-between items-center gap-4">
+
+                    <article id="group3" class="flex flex-col justify-between gap-2 ">
+                        <div class="flex gap-2">
+                            <label for="">Consumo de alcohol</label>
+                            <select class="select select-xs w-full max-w-xs" v-model="alcoholIntake"
+                                label="Consumo de Alcohol">
+                                <option value=0>Ninguno</option>
+                                <option value=1>Moderado</option>
+                                <option value=2>A menudo</option>
+                            </select>
+                        </div>
+                        <div class="flex gap-2">
+                            <label>Horas de Ejercicio</label>
+                            <input class="input input-bordered input-xs w-full max-w-xs" min="0" v-model="exerciseHours"
+                                label="Horas de Ejercicio" type="number" />
+                        </div>
+                        <div class="flex gap-2">
+                            <label>Historial Familiar</label>
+                            <select class="select select-xs w-full max-w-xs" v-model="familyHistory"
+                                label="Historial Familiar">
+                                <option value=0>No</option>
+                                <option value=1>Sí</option>
+                            </select>
+                        </div>
+                    </article>
+
+                    <article id="group4" class="flex flex-col justify-between gap-2 ">
+                        <div class="flex gap-2">
+                            <label>Diabetes</label>
+                            <select class="select select-xs w-full max-w-xs" v-model="diabetes" label="Diabetes"
+                            >
+                                <option value=0>No</option>
+                                <option value=1>Sí</option>
+                            </select>
+                        </div>
+                        <div class="flex gap-2">
+                            <label>Obesidad</label>
+                            <select class="select select-xs w-full max-w-xs" v-model="obesity" label="Obesidad"
+                            >
+                                <option value=0>No</option>
+                                <option value=1>Sí</option>
+                            </select>
+                        </div>
+                        <div class="flex gap-2">
+                            <label>Nivel de Estrés</label>
+                            <input class="input input-bordered input-xs w-full max-w-xs" min="0" v-model="stressLevel"
+                                label="Nivel de Estrés" type="number" />
+                        </div>
+                    </article>
                 </div>
-                <div class="flex gap-2">
-                    <label>Colesterol</label>
-                    <input class="input input-bordered input-xs w-full max-w-xs" min="0" v-model="cholesterol" label="Colesterol" type="number" />
+
+                <div id="groups5+5" class="flex flex-col justify-between items-center gap-4">
+
+                    <article id="group5" class="flex flex-col justify-between gap-2 ">
+                        <div class="flex gap-2">
+                            <label>Nivel de Azúcar</label>
+                            <input class="input input-bordered input-xs w-full max-w-xs" min="0" v-model="bloodSugar"
+                                label="Azúcar en Sangre" type="number" />
+                        </div>
+                        <div class="flex gap-2">
+                            <label>Angina Inducida</label>
+                            <select class="select select-xs w-full max-w-xs" v-model="exerciseInducedAngina"
+                                label="Angina Inducida por Ejercicio">
+                                <option value=0>No</option>
+                                <option value=1>Sí</option>
+                            </select>
+                        </div>
+                        <div class="flex gap-2">
+                            <label>Tipo de dolor</label>
+                            <select class="select select-xs w-full max-w-xs" v-model="chestPainType"
+                                label="Tipo de dolor en el pecho">
+                                <option value=0>Angina típica</option>
+                                <option value=1>Angina atípica</option>
+                                <option value=2>Dolor no anginal</option>
+                                <option value=3>Asintomático</option>
+                            </select>
+                        </div>
+                    </article>
                 </div>
-                <div class="flex gap-2">
-                    <label>Presión Arterial</label>
-                    <input class="input input-bordered input-xs w-full max-w-xs" min="0" v-model="bloodPressure" label="Presión Arterial" type="number" />
-                </div>
-                <div class="flex gap-2">
-                    <label>Frecuencia Cardíaca</label>
-                    <input class="input input-bordered input-xs w-full max-w-xs" min="0" v-model="heartRate" label="Frecuencia Cardíaca" type="number" />
-                </div>
-                <div class="flex gap-2">
-                    <label>Fumador</label>
-                    <select class="select select-xs w-full max-w-xs" v-model="smoking" label="Fumador">
-                        <option value=0>Nunca</option>
-                        <option value=1>Anteriormente</option>
-                        <option value=2>Actualmente</option>
-                    </select>
-                </div>
-                <div class="flex gap-2">
-                    <label for="">Consumo de alcohol</label>
-                    <select class="select select-xs w-full max-w-xs" v-model="alcoholIntake" label="Consumo de Alcohol">
-                        <option value=0>Ninguno</option>
-                        <option value=1>Moderado</option>
-                        <option value=2>A menudo</option>
-                    </select>
-                </div>
-                <div class="flex gap-2">
-                    <label>Horas de Ejercicio</label>
-                    <input class="input input-bordered input-xs w-full max-w-xs" min="0" v-model="exerciseHours" label="Horas de Ejercicio" type="number" />
-                </div>
-                <div class="flex gap-2">
-                    <label>Historial Familiar</label>
-                    <select class="select select-xs w-full max-w-xs" v-model="familyHistory" label="Historial Familiar">
-                        <option value=0>No</option>
-                        <option value=1>Sí</option>
-                    </select>
-                </div>
-                <div class="flex gap-2">
-                    <label>Diabetes</label>
-                    <select class="select select-xs w-full max-w-xs" v-model="diabetes" label="Diabetes">
-                        <option value=0>No</option>
-                        <option value=1>Sí</option>
-                    </select>
-                </div>
-                <div class="flex gap-2">
-                    <label>Obesidad</label>
-                    <select class="select select-xs w-full max-w-xs" v-model="obesity" label="Obesidad">
-                        <option value=0>No</option>
-                        <option value=1>Sí</option>
-                    </select>
-                </div>
-                <div class="flex gap-2">
-                    <label>Nivel de Estrés</label>
-                    <input class="input input-bordered input-xs w-full max-w-xs" min="0" v-model="stressLevel" label="Nivel de Estrés" type="number" />
-                </div>
-                <div class="flex gap-2">
-                    <label>Azúcar en Sangre</label>
-                    <input class="input input-bordered input-xs w-full max-w-xs" min="0" v-model="bloodSugar" label="Azúcar en Sangre" type="number" />
-                </div>
-                <div class="flex gap-2">
-                    <label>Angina Inducida por Ejercicio</label>
-                    <select class="select select-xs w-full max-w-xs" v-model="exerciseInducedAngina" label="Angina Inducida por Ejercicio">
-                        <option value=0>No</option>
-                        <option value=1>Sí</option>
-                    </select>
-                </div>
-                <div class="flex gap-2">
-                    <label>Tipo de dolor en el pecho</label>
-                    <select class="select select-xs w-full max-w-xs" v-model="chestPainType" label="Tipo de dolor en el pecho">
-                        <option value=0>Angina típica</option>
-                        <option value=1>Angina atípica</option>
-                        <option value=2>Dolor no anginal</option>
-                        <option value=3>Asintomático</option>
-                    </select>
-                </div>
-            </div>
-            <div class="flex flex-row justify-center items-center gap-4">
+
+
+            </section>
+            <section class="flex flex-row justify-center items-center gap-4">
                 <button class="bg-[#1d3461] text-[#b1e0e7]  border-[#6290c8] border-2 rounded-box p-2 font-medium"
                     type="submit">Predecir riesgo</button>
                 <button class="bg-[#1d3461] text-[#b1e0e7]  border-[#6290c8] border-2 rounded-box p-2 font-medium"
                     @click="dataReset">Resetear datos</button>
-            </div>
+            </section>
 
         </form>
         <div>
@@ -183,7 +222,7 @@ const heartDisease = ref(null);
 const predictionResult = ref(null);
 
 async function predictHeartDisease() {
-    console.log('pulsado predictHeartDisease');
+    //console.log('pulsado predictHeartDisease');
 
     await makePrediction({
         age: age.value,
@@ -201,6 +240,7 @@ async function predictHeartDisease() {
         bloodSugar: bloodSugar.value,
         exerciseInducedAngina: exerciseInducedAngina.value,
         chestPainType: chestPainType.value,
+
 
     });
 
@@ -238,6 +278,7 @@ async function dataReset() {
         chestPainType.value = null,
         heartDisease.value = null,
         predictionResult.value = null;
+        window.location.reload();
 }
 
 async function loadData() {
@@ -407,4 +448,8 @@ async function makePrediction(inputData) {
 
 </script>
 
-<style scoped></style>
+<style scoped>
+label {
+    width: 250px;
+}
+</style>
