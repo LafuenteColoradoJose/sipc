@@ -143,7 +143,8 @@
         <div>
             <div class="flex flex-row items-center gap-3 mb-2">
                 <p class="text-lg font-semibold">Riesgo predicho:</p>
-                <p class="text-lg font-semibold">{{ predictionResult }} %</p>
+                <p class="text-lg font-semibold">{{ predictionResult }}</p>
+                <span class="text-lg font-semibold" v-if="predictionResult">%</span>
             </div>
             <div class="flex flex-col justify-center items-center text-xs">
                 <span class="text-center">Datos introducidos:</span>
@@ -177,7 +178,6 @@
 
 <script setup>
 import { inject, ref } from 'vue';
-// import * as tf from '@tensorflow/tfjs';
 
 useHead({
     title: 'S.I.P.C.',
@@ -222,7 +222,6 @@ const heartDisease = ref(null);
 const predictionResult = ref(null);
 
 async function predictHeartDisease() {
-    //console.log('pulsado predictHeartDisease');
 
     await makePrediction({
         age: age.value,
@@ -240,24 +239,14 @@ async function predictHeartDisease() {
         bloodSugar: bloodSugar.value,
         exerciseInducedAngina: exerciseInducedAngina.value,
         chestPainType: chestPainType.value,
-
-
     });
-
 }
 
 onMounted(() => {
     loadData();
     createModel();
     trainModel(inputTensor, outputTensor);
-
-    // // Asegúrate de que esta parte del código se ejecuta después de que TensorFlow.js esté cargado
-    // // Aquí puedes inicializar tus tensores o realizar operaciones con ellos
-    // inputTensor = tf.tensor2d([[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]], [1, 15]);
-    // outputTensor = tf.tensor2d([[1]], [1, 1]);
-
-    // console.log(inputTensor.shape); // Debería mostrar [1, 15]
-    // console.log(outputTensor.shape); // Debería mostrar [1, 1]
+    
 });
 
 async function dataReset() {
@@ -287,7 +276,7 @@ async function loadData() {
     const rows = data.split(/\r\n|\n/).slice(1);
 
     const processedRows = rows.map((row) => {
-        const values = row.split(","); // Asumiendo que es un CSV estándar separado por comas
+        const values = row.split(",");
         return {
             Age: values[0],
             Gender: values[1],
@@ -304,12 +293,10 @@ async function loadData() {
             BloodSugar: values[12],
             ExerciseInducedAngina: values[13],
             ChestPainType: values[14],
-            HeartDisease: values[15], // Asegúrate de que este es el índice correcto
+            HeartDisease: values[15],
         };
     });
-    console.log(processedRows[0]); // Debería mostrar el primer objeto en el array
 
-    // Ahora puedes usar `map` en `processedRows`, que es un array de objetos
     const inputs = processedRows
         .map((row) => [
             parseFloat(row.Age),
@@ -334,63 +321,43 @@ async function loadData() {
         .map((row) => [parseFloat(row.HeartDisease)])
         .filter((output) => !isNaN(output[0]));
 
-    console.log(inputs);
-    console.log(outputs);
-
-    // Convertir a tensores
     inputTensor = tf.tensor2d(inputs);
     outputTensor = tf.tensor2d(outputs);
-
-    // Asegúrate de que las dimensiones de los tensores coincidan con las expectativas del modelo
-    console.log(inputTensor.shape); // Debería mostrar [num_samples, 15]
-    console.log(outputTensor.shape); // Debería mostrar [num_samples, 1]
-
-    // console.log(inputTensor);
-    // console.log(outputTensor);
 
 }
 
 async function createModel() {
     model = tf.sequential();
-    console.log(model);
     const hidden = tf.layers.dense({
-        units: 10, // Número de nodos en la capa oculta
-        inputShape: [15], // Forma de los datos de entrada
-        activation: "tanh", // Función de activación
+        units: 10, 
+        inputShape: [15],
+        activation: "tanh",
     });
 
     model.add(hidden);
-    console.log(model);
 
     const output = tf.layers.dense({
-        units: 1, // Número de nodos en la capa de salida
-        // inputShape: [10], // Forma de los datos de entrada para esta capa
-        activation: "sigmoid", // Función de activación para clasificación binaria
+        units: 1,
+        // inputShape: [10], 
+        activation: "sigmoid",
     });
 
     model.add(output);
-    console.log(model);
 
     await model.compile({
-        optimizer: "sgd", // Optimizador
-        loss: "binaryCrossentropy", // Función de pérdida para clasificación binaria
+        optimizer: "sgd",
+        loss: "binaryCrossentropy",
     });
-
-    console.log(model);
-
 }
 
-
 async function trainModel(inputTensor, outputTensor) {
-    // Verifica que inputTensor y outputTensor no sean undefined o null
     if (!inputTensor || !outputTensor) {
         console.error(
             "trainModel: inputTensor or outputTensor is undefined or null",
         );
-        return; // Detiene la ejecución de la función
+        return;
     }
 
-    // Asegúrate de que inputTensor y outputTensor sean numéricos
     const numericInputTensor = tf.tensor2d(
         inputTensor.arraySync().map((row) => convertToNumeric(row)),
     );
@@ -399,15 +366,13 @@ async function trainModel(inputTensor, outputTensor) {
     );
 
     const configTrain = {
-        epochs: 10,
+        epochs: 30,
         shuffle: true,
-        // Añade aquí el resto de la configuración de entrenamiento si es necesario
     };
 
     await model.fit(numericInputTensor, numericOutputTensor, configTrain);
     console.log("Model trained successfully");
 }
-
 
 async function makePrediction(inputData) {
     console.log('variable inputData:', inputData);
@@ -430,19 +395,15 @@ async function makePrediction(inputData) {
         inputData.chestPainType,
     ];
 
-    // Convertir el array a un tensor 2D (1 fila con N columnas)
     const inputTensor = tf.tensor2d([inputArray]);
 
-    // Realizar la predicción
     let prediction = await model.predict(inputTensor);
-    prediction.print(); // Opcional: imprimir el tensor de predicción en la consola
+    prediction.print(); 
 
-    // Convertir el tensor de predicción a un valor utilizable
     const predictionValue = (prediction.arraySync()[0][0] * 100).toFixed(0);
     console.log(predictionValue);
 
-    // Actualizar el estado de Vue con el resultado
-    predictionResult.value = predictionValue; // Asegúrate de que predictionResult esté definido como ref() en <script setup>
+    predictionResult.value = predictionValue;
 }
 
 
