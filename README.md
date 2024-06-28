@@ -1,75 +1,30 @@
-# Nuxt 3 Minimal Starter
+# Sistema Inteligente de Predicción Cardiovascular (SIPC)
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Descripción
+El Sistema Inteligente de Predicción Cardiovascular (SIPC) es una herramienta diseñada para predecir el riesgo de enfermedades cardiovasculares en pacientes utilizando algoritmos de aprendizaje automático. Este sistema utiliza datos clínicos del paciente para evaluar el riesgo y proporcionar recomendaciones preventivas.
 
-## Setup
+## Características
+- **Predicción Basada en Datos Clínicos**: Utiliza información clínica del paciente como niveles de azúcar en sangre, tipo de dolor en el pecho, entre otros, para realizar predicciones.
+- **Interfaz Intuitiva**: Ofrece una interfaz de usuario amigable para la fácil introducción de datos y visualización de resultados.
+- **Resultados Inmediatos**: Proporciona predicciones en tiempo real con una representación porcentual del riesgo cardiovascular.
 
-Make sure to install the dependencies:
+## Tecnologías Utilizadas
+- Nuxt3.js: Para la interfaz de usuario y la interactividad del frontend.
+- TensorFlow.js: Para ejecutar modelos de aprendizaje automático directamente en el navegador.
+- CSS: Para estilizar la aplicación y mejorar la experiencia del usuario.
 
+## Instalación
+Para instalar y ejecutar el SIPC en tu entorno local, sigue estos pasos:
+
+1. Clona el repositorio:
 ```bash
-# npm
+git clone https://github.com/tu-usuario/sipc.git
+
+cd sipc
+
 npm install
 
-# pnpm
-pnpm install
+npm run serve
 
-# yarn
-yarn install
-
-# bun
-bun install
+http://localhost:3000/
 ```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
