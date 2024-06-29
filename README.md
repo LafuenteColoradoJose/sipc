@@ -18,6 +18,8 @@ El Sistema Inteligente de Predicción Cardiovascular (SIPC) es una herramienta d
 - [Tailwind](https://tailwindcss.com/): Para estilizar la aplicación y mejorar la experiencia del usuario.
 ![Tailwind](https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
+- [Heart Disease prediction](https://www.kaggle.com/datasets/rashadrmammadov/heart-disease-prediction?resource=download)
+
 ## Instalación
 Para instalar y ejecutar el SIPC en tu entorno local, sigue estos pasos:
 
