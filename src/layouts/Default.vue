@@ -1,13 +1,14 @@
 <template>
 
-  <main class="p-4 flex flex-col justify-between h-dvh" :data-theme="theme">
-    <NavBar @toggle-theme="toggleTheme"/>
-    <Title />
-    <Form />
-    <Advise />
-    <Footer />
-    <NuxtPage />
-  </main>
+    <main class="p-4 flex flex-col justify-between md:h-screen" :data-theme="theme">
+      <NavBar @toggle-theme="toggleTheme"/>
+      <Title />
+      <Form />
+      <Advise />
+      <Footer />
+      <NuxtPage />
+    </main>
+
 
 </template>
 
@@ -29,7 +30,7 @@ function toggleTheme() {
 </script>
 
 <style scoped>
-main{
+main {
   font-family: 'Onest Variable', sans-serif;
   /* overflow: hidden; */
 
@@ -38,7 +39,6 @@ main{
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat,
-  
 
 }
 </style>

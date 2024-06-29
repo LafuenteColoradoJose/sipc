@@ -1,5 +1,5 @@
 <template>
-  <div></div>  
+  <div></div>
 </template>
 
 <script setup>
@@ -28,5 +28,6 @@ useHead({
 </script>
 
 <style scoped>
+
 
 </style>
