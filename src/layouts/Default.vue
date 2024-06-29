@@ -1,6 +1,6 @@
 <template>
 
-    <main class="p-4 flex flex-col justify-between md:h-screen" :data-theme="theme">
+    <main class="p-4 flex flex-col justify-between md:h-lvh" :data-theme="theme">
       <NavBar @toggle-theme="toggleTheme"/>
       <Title />
       <Form />
