@@ -143,7 +143,7 @@
         <div>
             <div class="flex flex-row items-center gap-3 mb-2">
                 <p class="text-lg font-semibold">Riesgo predicho:</p>
-                <p class="text-lg font-semibold">{{ predictionResult }}</p>
+                <p v-if="predictionResult" class="text-lg font-semibold">{{ predictionResult }}</p>
                 <span class="text-lg font-semibold" v-if="predictionResult">%</span>
             </div>
             <div class="flex flex-col justify-center items-center text-xs">
@@ -200,7 +200,7 @@ let inpust = ref(null);
 let outputs = ref(null);
 let inputTensor = ref(null);
 let outputTensor = ref(null);
-let h = ref(null);
+// let h = ref(null);
 let model = ref(null);
 
 const age = ref(null);
@@ -250,24 +250,24 @@ onMounted(() => {
 });
 
 async function dataReset() {
-    age.value = null,
-        gender.value = null,
-        cholesterol.value = null,
-        bloodPressure.value = null,
-        heartRate.value = null,
-        smoking.value = null,
-        alcoholIntake.value = null,
-        exerciseHours.value = null,
-        familyHistory.value = null,
-        diabetes.value = null,
-        obesity.value = null,
-        stressLevel.value = null,
-        bloodSugar.value = null,
-        exerciseInducedAngina.value = null,
-        chestPainType.value = null,
-        heartDisease.value = null,
-        predictionResult.value = null;
-        window.location.reload();
+    // age.value = null,
+    // gender.value = null,
+    // cholesterol.value = null,
+    // bloodPressure.value = null,
+    // heartRate.value = null,
+    // smoking.value = null,
+    // alcoholIntake.value = null,
+    // exerciseHours.value = null,
+    // familyHistory.value = null,
+    // diabetes.value = null,
+    // obesity.value = null,
+    // stressLevel.value = null,
+    // bloodSugar.value = null,
+    // exerciseInducedAngina.value = null,
+    // chestPainType.value = null,
+    // heartDisease.value = null,
+    // predictionResult.value = null;
+    window.location.reload();
 }
 
 async function loadData() {
@@ -401,7 +401,7 @@ async function makePrediction(inputData) {
     prediction.print(); 
 
     const predictionValue = (prediction.arraySync()[0][0] * 100).toFixed(0);
-    console.log(predictionValue);
+    // console.log(predictionValue);
 
     predictionResult.value = predictionValue;
 }
