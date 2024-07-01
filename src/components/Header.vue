@@ -37,7 +37,7 @@ const theme = ref('light');
 function toggleTheme() {
   theme.value = theme.value === 'light' ? 'dark' : 'light';
   localStorage.setItem('theme', theme.value);
-  console.log(theme.value);
+  // console.log(theme.value);
 }
 
 
