@@ -7,7 +7,7 @@
        <path fill="none" stroke-width="3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M24 41.824L7.77 22.774A10.13 10.13 0 1 1 24 10.693" />
      </svg>
 
-     <h1 class="text-6xl font-semibold text-[#1d3461]">S.I.P.C.</h1>
+     <h1 class="text-6xl font-semibold ">S.I.P.C.</h1>
 
      <label class="swap swap-rotate">
 
