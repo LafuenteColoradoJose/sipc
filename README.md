@@ -24,7 +24,7 @@ El Sistema Inteligente de Predicción Cardiovascular (SIPC) es una herramienta d
 Para instalar y ejecutar el SIPC en tu entorno local, sigue estos pasos:
 
 1. Clona el repositorio:
-git clone https://github.com/tu-usuario/sipc.git
+git clone https://github.com/LafuenteColoradoJose/sipc.git
 2. Navega al directorio del proyecto:
 cd sipc
 3. Instala las dependencias:
