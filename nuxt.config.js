@@ -5,16 +5,20 @@ import { fileURLToPath } from 'url'
 export default defineNuxtConfig({
   devtools: { enabled: true },
   srcDir: 'src/',
+
   alias: {
     '@': fileURLToPath(new URL('./src/', import.meta.url)),
   },
+
   css: ['@/assets/css/main.css'],
+
   modules: [
     '@nuxtjs/tailwindcss',
     "@nuxt/fonts", 
     "@nuxt/icon",
 
   ],
+
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -34,5 +38,6 @@ export default defineNuxtConfig({
       link: [{ rel: 'icon', type: 'image/png', href: '/favicon-32x32.png' }]
     }
   },
-  
+
+  compatibilityDate: '2025-03-17',
 })
