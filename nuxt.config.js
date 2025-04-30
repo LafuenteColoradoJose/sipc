@@ -35,7 +35,9 @@ export default defineNuxtConfig({
       meta: [
         { name: 'description', content: 'Sistema Inteligente de Predicción Cardiovascular' }
       ],
-      link: [{ rel: 'icon', type: 'image/png', href: '/favicon-32x32.png' }]
+      link: [
+          {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
+      ]
     }
   },
 

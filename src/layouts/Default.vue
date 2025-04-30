@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, provide, onMounted } from 'vue';
 import NavBar from '@/components/NavBar.vue';
 import Title from '@/components/Title.vue';
 import Footer from '@/components/Footer.vue';
@@ -22,6 +22,8 @@ import Form from '~/components/Form.vue';
 
 const theme = ref('light');
 const textColor = ref('#1d3461')
+
+provide('theme', theme)
 
 function toggleTheme() {
   theme.value = theme.value === 'light' ? 'dark' : 'light';
@@ -34,6 +36,14 @@ function toggleTheme() {
     textColor.value = '#E9FFFF';
   }
 }
+
+onMounted(()=>{
+  const storedTheme = localStorage.getItem('theme');
+  if (storedTheme) {
+    theme.value = storedTheme;
+    textColor.value = storedTheme === 'light' ? '#1d3461' : '#E9FFFF';
+  }
+})
 </script>
 
 <style scoped>
