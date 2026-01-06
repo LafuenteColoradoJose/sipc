@@ -1,30 +1,23 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-import { fileURLToPath } from 'url'
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  srcDir: 'src/',
-
-  alias: {
-    '@': fileURLToPath(new URL('./src/', import.meta.url)),
+  sourcemap: {
+    server: false,
+    client: false
   },
+  css: ['~/assets/css/main.css'],
 
-  css: ['@/assets/css/main.css'],
+  vite: {
+    plugins: [tailwindcss()],
+  },
 
   modules: [
-    '@nuxtjs/tailwindcss',
-    "@nuxt/fonts", 
+    "@nuxt/fonts",
     "@nuxt/icon",
-
   ],
-
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
-    },
-  },
 
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
@@ -36,7 +29,7 @@ export default defineNuxtConfig({
         { name: 'description', content: 'Sistema Inteligente de Predicción Cardiovascular' }
       ],
       link: [
-          {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
       ]
     }
   },
