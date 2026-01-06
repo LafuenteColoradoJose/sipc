@@ -26,25 +26,27 @@ import Form from '~/components/Form.vue';
 <style scoped>
 main {
   font-family: 'Onest Variable', sans-serif;
+  isolation: isolate;
+  /* Creates a new stacking context */
 }
 
-/* Pseudo-element for the background image to add opacity/blending */
+/* Pseudo-element for the background image */
 main::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
+  /* Shorthand for top/left/right/bottom: 0 */
   background-image: url('/img/bg.svg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.1;
-  /* Reduced opacity to make it look decent */
-  z-index: 0;
+  /* Visible in light mode */
+  z-index: -1;
+  /* Behind content */
   pointer-events: none;
+  transition: opacity 0.3s ease;
 }
+
 
 /* Ensure content sits above the background */
 main>* {

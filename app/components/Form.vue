@@ -1,172 +1,254 @@
 <template>
+    <div class="w-full max-w-6xl mx-auto px-4 pb-12">
+        <h1
+            class="text-3xl md:text-5xl font-bold text-center mb-10 text-[var(--color-primary)] dark:text-[var(--color-primary-dark)]">
+            Predicción de Riesgo Cardiovascular</h1>
 
-    <div>
-        <h1>Predicción del riesgo de enfermedades cardíacas</h1>
-        <form @submit.prevent="predictHeartDisease" class="flex flex-col justify-between items-center m-2 gap-4 ">
-            <section class="grid grid-cols-1 m-2 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <form @submit.prevent="predictHeartDisease" class="flex flex-col gap-8">
+            <!-- Main Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                <div id="groups1+2" class="flex flex-col justify-between items-center gap-4 w-full">
+                <!-- Section 1: Datos Personales -->
+                <section
+                    class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 transition-all hover:shadow-xl">
+                    <h2 class="text-xl font-semibold mb-6 flex items-center gap-2 text-gray-700 dark:text-gray-200">
+                        <Icon name="uil:user" class="w-6 h-6 text-[var(--color-primary)]" />
+                        Datos Personales
+                    </h2>
 
-                    <article id="group1" class="flex flex-col justify-between gap-4 w-full">
-                        <div class="flex flex-col w-full">
-                            <label class="label"><span class="label-text">Edad</span></label>
-                            <input class="input input-bordered w-full" min="0" v-model="age" type="number"
-                                placeholder="Ej: 45" />
+                    <div class="space-y-6">
+                        <div class="form-control">
+                            <label class="label"><span class="label-text">Edad (años)</span></label>
+                            <input class="input" min="0" max="120" v-model="age" type="number" placeholder="Ej: 45" />
                         </div>
-                        <div class="flex flex-col w-full">
+
+                        <div class="form-control">
                             <label class="label"><span class="label-text">Género</span></label>
-                            <select class="select select-bordered w-full" v-model="gender">
-                                <option value=0>Masculino</option>
-                                <option value=1>Femenino</option>
-                            </select>
+                            <div class="flex bg-gray-100 dark:bg-gray-700 p-1 rounded-lg">
+                                <button type="button" @click="gender = 0"
+                                    class="flex-1 py-2 rounded-md transition-all text-sm font-medium"
+                                    :class="gender === 0 ? 'bg-white text-[var(--color-primary)] shadow-sm dark:bg-gray-600 dark:text-white' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'">
+                                    Masculino
+                                </button>
+                                <button type="button" @click="gender = 1"
+                                    class="flex-1 py-2 rounded-md transition-all text-sm font-medium"
+                                    :class="gender === 1 ? 'bg-white text-[var(--color-primary)] shadow-sm dark:bg-gray-600 dark:text-white' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'">
+                                    Femenino
+                                </button>
+                            </div>
                         </div>
-                        <div class="flex flex-col w-full">
-                            <label class="label"><span class="label-text">Colesterol</span></label>
-                            <input class="input input-bordered w-full" min="0" v-model="cholesterol" type="number"
-                                placeholder="Ej: 200" />
-                        </div>
-                    </article>
 
-                    <article id="group2" class="flex flex-col justify-between gap-4 w-full">
-                        <div class="flex flex-col w-full">
-                            <label class="label"><span class="label-text">Presión Arterial</span></label>
-                            <input class="input input-bordered w-full" min="0" v-model="bloodPressure" type="number"
-                                placeholder="Ej: 120" />
-                        </div>
-                        <div class="flex flex-col w-full">
-                            <label class="label"><span class="label-text">Frecuencia Cardíaca</span></label>
-                            <input class="input input-bordered w-full" min="0" v-model="heartRate" type="number"
-                                placeholder="Ej: 75" />
-                        </div>
-                        <div class="flex flex-col w-full">
-                            <label class="label"><span class="label-text">Fumador</span></label>
-                            <select class="select select-bordered w-full" v-model="smoking">
-                                <option value=0>Nunca</option>
-                                <option value=1>Anteriormente</option>
-                                <option value=2>Actualmente</option>
-                            </select>
-                        </div>
-                    </article>
-                </div>
-
-                <div id="groups3+4" class="flex flex-col justify-between items-center gap-4 w-full">
-
-                    <article id="group3" class="flex flex-col justify-between gap-4 w-full">
-                        <div class="flex flex-col w-full">
-                            <label class="label"><span class="label-text">Consumo de alcohol</span></label>
-                            <select class="select select-bordered w-full" v-model="alcoholIntake">
-                                <option value=0>Ninguno</option>
-                                <option value=1>Moderado</option>
-                                <option value=2>A menudo</option>
-                            </select>
-                        </div>
-                        <div class="flex flex-col w-full">
-                            <label class="label"><span class="label-text">Horas de Ejercicio</span></label>
-                            <input class="input input-bordered w-full" min="0" v-model="exerciseHours" type="number"
-                                placeholder="Ej: 5" />
-                        </div>
-                        <div class="flex flex-col w-full">
+                        <div class="form-control">
                             <label class="label"><span class="label-text">Historial Familiar</span></label>
-                            <select class="select select-bordered w-full" v-model="familyHistory">
-                                <option value=0>No</option>
-                                <option value=1>Sí</option>
+                            <div class="flex gap-4">
+                                <label
+                                    class="flex items-center gap-2 cursor-pointer p-3 border rounded-lg flex-1 transition-colors"
+                                    :class="familyHistory === 1 ? 'border-[var(--color-primary)] bg-red-50 dark:bg-red-900/10' : 'border-gray-200 dark:border-gray-600'">
+                                    <input type="radio" :value="1" v-model="familyHistory"
+                                        class="text-[var(--color-primary)] focus:ring-[var(--color-primary)]" />
+                                    <span class="text-sm">Sí</span>
+                                </label>
+                                <label
+                                    class="flex items-center gap-2 cursor-pointer p-3 border rounded-lg flex-1 transition-colors"
+                                    :class="familyHistory === 0 ? 'border-green-500 bg-green-50 dark:bg-green-900/10' : 'border-gray-200 dark:border-gray-600'">
+                                    <input type="radio" :value="0" v-model="familyHistory"
+                                        class="text-green-600 focus:ring-green-500" />
+                                    <span class="text-sm">No</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Estilo de Vida -->
+                <section
+                    class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 transition-all hover:shadow-xl">
+                    <h2 class="text-xl font-semibold mb-6 flex items-center gap-2 text-gray-700 dark:text-gray-200">
+                        <Icon name="uil:heart-medical" class="w-6 h-6 text-[var(--color-primary)]" />
+                        Estilo de Vida
+                    </h2>
+
+                    <div class="space-y-6">
+                        <div class="form-control">
+                            <label class="label"><span class="label-text">Fumador</span></label>
+                            <select class="select" v-model="smoking">
+                                <option :value="0">Nunca</option>
+                                <option :value="1">Anteriormente</option>
+                                <option :value="2">Actualmente</option>
                             </select>
                         </div>
-                    </article>
 
-                    <article id="group4" class="flex flex-col justify-between gap-4 w-full">
-                        <div class="flex flex-col w-full">
-                            <label class="label"><span class="label-text">Diabetes</span></label>
-                            <select class="select select-bordered w-full" v-model="diabetes">
-                                <option value=0>No</option>
-                                <option value=1>Sí</option>
+                        <div class="form-control">
+                            <label class="label"><span class="label-text">Consumo de Alcohol</span></label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <button type="button" @click="alcoholIntake = 0"
+                                    class="py-2 px-1 rounded-lg border text-xs font-medium transition-all"
+                                    :class="alcoholIntake === 0 ? 'border-green-500 bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-300' : 'border-gray-200 text-gray-500 dark:border-gray-600'">
+                                    Ninguno
+                                </button>
+                                <button type="button" @click="alcoholIntake = 1"
+                                    class="py-2 px-1 rounded-lg border text-xs font-medium transition-all"
+                                    :class="alcoholIntake === 1 ? 'border-yellow-500 bg-yellow-50 text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-300' : 'border-gray-200 text-gray-500 dark:border-gray-600'">
+                                    Moderado
+                                </button>
+                                <button type="button" @click="alcoholIntake = 2"
+                                    class="py-2 px-1 rounded-lg border text-xs font-medium transition-all"
+                                    :class="alcoholIntake === 2 ? 'border-red-500 bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-300' : 'border-gray-200 text-gray-500 dark:border-gray-600'">
+                                    Alto
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-control">
+                            <label class="label flex justify-between">
+                                <span class="label-text">Horas Ejercicio/Semana</span>
+                                <span class="text-xs font-bold text-[var(--color-primary)]">{{ exerciseHours || 0
+                                }}h</span>
+                            </label>
+                            <input type="range" min="0" max="20" v-model="exerciseHours"
+                                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-[var(--color-primary)]" />
+                        </div>
+
+                        <div class="form-control">
+                            <label class="label flex justify-between">
+                                <span class="label-text">Nivel de Estrés (1-10)</span>
+                                <span class="text-xs font-bold text-[var(--color-primary)]">{{ stressLevel || 1
+                                }}</span>
+                            </label>
+                            <input type="range" min="1" max="10" v-model="stressLevel"
+                                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-[var(--color-primary)]" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Métricas Clínicas -->
+                <section
+                    class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 transition-all hover:shadow-xl md:col-span-2 lg:col-span-1">
+                    <h2 class="text-xl font-semibold mb-6 flex items-center gap-2 text-gray-700 dark:text-gray-200">
+                        <Icon name="uil:stethoscope" class="w-6 h-6 text-[var(--color-primary)]" />
+                        Métricas Clínicas
+                    </h2>
+
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="form-control">
+                                <label class="label"><span class="label-text text-xs">Colesterol</span></label>
+                                <input class="input text-sm" type="number" v-model="cholesterol" placeholder="mg/dL" />
+                            </div>
+                            <div class="form-control">
+                                <label class="label"><span class="label-text text-xs">Presión Art.</span></label>
+                                <input class="input text-sm" type="number" v-model="bloodPressure" placeholder="mmHg" />
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="form-control">
+                                <label class="label"><span class="label-text text-xs">Frec. Cardíaca</span></label>
+                                <input class="input text-sm" type="number" v-model="heartRate" placeholder="bpm" />
+                            </div>
+                            <div class="form-control">
+                                <label class="label"><span class="label-text text-xs">Azúcar</span></label>
+                                <input class="input text-sm" type="number" v-model="bloodSugar" placeholder="mg/dL" />
+                            </div>
+                        </div>
+
+                        <!-- Toggles Grid -->
+                        <div class="grid grid-cols-2 gap-4 pt-2">
+                            <div class="form-control">
+                                <label class="label"><span class="label-text text-xs">Diabetes</span></label>
+                                <button type="button" @click="diabetes = diabetes === 1 ? 0 : 1"
+                                    class="w-full py-2 rounded-lg border transition-all text-xs font-semibold"
+                                    :class="diabetes === 1 ? 'border-[var(--color-primary)] bg-red-50 text-[var(--color-primary)] dark:bg-red-900/20' : 'border-gray-200 text-gray-500 hover:border-gray-300 dark:border-gray-600'">
+                                    {{ diabetes === 1 ? 'Sí' : 'No' }}
+                                </button>
+                            </div>
+                            <div class="form-control">
+                                <label class="label"><span class="label-text text-xs">Obesidad</span></label>
+                                <button type="button" @click="obesity = obesity === 1 ? 0 : 1"
+                                    class="w-full py-2 rounded-lg border transition-all text-xs font-semibold"
+                                    :class="obesity === 1 ? 'border-[var(--color-primary)] bg-red-50 text-[var(--color-primary)] dark:bg-red-900/20' : 'border-gray-200 text-gray-500 hover:border-gray-300 dark:border-gray-600'">
+                                    {{ obesity === 1 ? 'Sí' : 'No' }}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-control">
+                            <label class="label"><span class="label-text text-xs">Angina Inducida</span></label>
+                            <button type="button" @click="exerciseInducedAngina = exerciseInducedAngina === 1 ? 0 : 1"
+                                class="w-full py-2 rounded-lg border transition-all text-xs font-semibold"
+                                :class="exerciseInducedAngina === 1 ? 'border-[var(--color-primary)] bg-red-50 text-[var(--color-primary)] dark:bg-red-900/20' : 'border-gray-200 text-gray-500 hover:border-gray-300 dark:border-gray-600'">
+                                {{ exerciseInducedAngina === 1 ? 'Sí, inducida' : 'No detectada' }}
+                            </button>
+                        </div>
+
+                        <div class="form-control">
+                            <label class="label"><span class="label-text text-xs">Tipo de Dolor</span></label>
+                            <select class="select text-sm h-10 py-0" v-model="chestPainType">
+                                <option :value="0">Típica</option>
+                                <option :value="1">Atípica</option>
+                                <option :value="2">No anginal</option>
+                                <option :value="3">Asintomático</option>
                             </select>
                         </div>
-                        <div class="flex flex-col w-full">
-                            <label class="label"><span class="label-text">Obesidad</span></label>
-                            <select class="select select-bordered w-full" v-model="obesity">
-                                <option value=0>No</option>
-                                <option value=1>Sí</option>
-                            </select>
-                        </div>
-                        <div class="flex flex-col w-full">
-                            <label class="label"><span class="label-text">Nivel de Estrés</span></label>
-                            <input class="input input-bordered w-full" min="0" v-model="stressLevel" type="number"
-                                placeholder="1-10" />
-                        </div>
-                    </article>
-                </div>
+                    </div>
+                </section>
+            </div>
 
-                <div id="groups5+5" class="flex flex-col justify-between items-center gap-4 w-full">
-
-                    <article id="group5" class="flex flex-col justify-between gap-4 w-full">
-                        <div class="flex flex-col w-full">
-                            <label class="label"><span class="label-text">Nivel de Azúcar</span></label>
-                            <input class="input input-bordered w-full" min="0" v-model="bloodSugar" type="number" />
-                        </div>
-                        <div class="flex flex-col w-full">
-                            <label class="label"><span class="label-text">Angina Inducida</span></label>
-                            <select class="select select-bordered w-full" v-model="exerciseInducedAngina">
-                                <option value=0>No</option>
-                                <option value=1>Sí</option>
-                            </select>
-                        </div>
-                        <div class="flex flex-col w-full">
-                            <label class="label"><span class="label-text">Tipo de dolor</span></label>
-                            <select class="select select-bordered w-full" v-model="chestPainType">
-                                <option value=0>Angina típica</option>
-                                <option value=1>Angina atípica</option>
-                                <option value=2>Dolor no anginal</option>
-                                <option value=3>Asintomático</option>
-                            </select>
-                        </div>
-                    </article>
-                </div>
-
-
-            </section>
-            <section class="flex flex-row justify-center items-center gap-4">
-                <button class="bg-[#1d3461] text-[#b1e0e7]  border-[#6290c8] border-2 rounded-box p-2 font-medium"
-                    type="submit">Predecir riesgo</button>
-                <button class="bg-[#1d3461] text-[#b1e0e7]  border-[#6290c8] border-2 rounded-box p-2 font-medium"
-                    @click="dataReset">Resetear datos</button>
-            </section>
-
+            <!-- Actions -->
+            <div class="flex flex-col-reverse md:flex-row justify-center items-center gap-6 mt-8">
+                <button type="button" @click="dataReset"
+                    class="px-8 py-3 rounded-full border-2 border-slate-300 text-slate-500 font-semibold hover:border-slate-400 hover:text-slate-600 transition-all focus:outline-none focus:ring-2 focus:ring-slate-200 dark:border-slate-600 dark:text-slate-400">
+                    Resetear formulario
+                </button>
+                <button type="submit"
+                    class="px-12 py-3 rounded-full bg-[var(--color-primary)] text-white font-bold text-lg shadow-lg shadow-red-500/30 hover:shadow-red-500/50 hover:scale-105 transition-all focus:outline-none focus:ring-4 focus:ring-red-500/20 active:scale-95">
+                    Calcular Riesgo
+                </button>
+            </div>
         </form>
-        <div>
-            <div class="flex flex-row items-center gap-3 mb-2">
-                <p class="text-lg font-semibold">Riesgo predicho:</p>
-                <p v-if="predictionResult" class="text-lg font-semibold">{{ predictionResult }}</p>
-                <span class="text-lg font-semibold" v-if="predictionResult">%</span>
-            </div>
-            <div class="flex flex-col justify-center items-center text-xs">
-                <span class="text-center">Datos introducidos:</span>
-                <div class="flex flex-row justify-between gap-6">
-                    <ul>
-                        <li>Edad: {{ age }}</li>
-                        <li>Género: {{ gender }}</li>
-                        <li>Colesterol: {{ cholesterol }}</li>
-                        <li>Presión Arterial: {{ bloodPressure }}</li>
-                        <li>Frecuencia Cardíaca: {{ heartRate }}</li>
-                        <li>Fumador: {{ smoking }}</li>
-                        <li>Consumo de alcohol: {{ alcoholIntake }}</li>
-                    </ul>
-                    <ul>
-                        <li>Horas de Ejercicio: {{ exerciseHours }}</li>
-                        <li>Historial Familiar: {{ familyHistory }}</li>
-                        <li>Diabetes: {{ diabetes }}</li>
-                        <li>Obesidad: {{ obesity }}</li>
-                        <li>Nivel de Estrés: {{ stressLevel }}</li>
-                        <li>Azúcar en Sangre: {{ bloodSugar }}</li>
-                    </ul>
+
+        <!-- Result Feedback (Modal Overlay or Fixed Bottom) -->
+        <transition enter-active-class="transition duration-300 ease-out"
+            enter-from-class="transform scale-95 opacity-0" enter-to-class="transform scale-100 opacity-100"
+            leave-active-class="transition duration-200 ease-in" leave-from-class="transform scale-100 opacity-100"
+            leave-to-class="transform scale-95 opacity-0">
+            <div v-if="predictionResult"
+                class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+                @click="predictionResult = null">
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-2xl max-w-md w-full text-center relative border border-gray-100 dark:border-gray-700"
+                    @click.stop>
+                    <button @click="predictionResult = null"
+                        class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                        <Icon name="mdi:close" class="w-6 h-6" />
+                    </button>
+
+                    <div class="mb-4 inline-flex items-center justify-center w-24 h-24 rounded-full"
+                        :class="predictionResult > 50 ? 'bg-red-100 text-red-500' : 'bg-green-100 text-green-500'">
+                        <Icon name="uil:heart-rate" class="w-12 h-12" />
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-2 text-gray-800 dark:text-white">Resultado del Análisis</h3>
+                    <p class="text-gray-500 dark:text-gray-400 mb-6">Basado en sus métricas clínicas y estilo de vida.
+                    </p>
+
+                    <div class="text-6xl font-black mb-2"
+                        :class="predictionResult > 50 ? 'text-[var(--color-primary)]' : 'text-green-500'">
+                        {{ predictionResult }}<span class="text-3xl">%</span>
+                    </div>
+
+                    <p class="font-medium text-lg mb-8"
+                        :class="predictionResult > 50 ? 'text-red-600' : 'text-green-600'">
+                        {{ predictionResult > 50 ? 'Riesgo Elevado Detectado' : 'Riesgo Bajo' }}
+                    </p>
+
+                    <button @click="predictionResult = null"
+                        class="w-full py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-xl font-semibold transition-colors">
+                        Entendido
+                    </button>
                 </div>
             </div>
-        </div>
+        </transition>
     </div>
-
-
-
-
 </template>
 
 <script setup>
