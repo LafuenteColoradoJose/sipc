@@ -1,7 +1,7 @@
 <template>
 
   <main class="p-4 flex flex-col justify-between min-h-screen relative">
-    <NavBar @toggle-theme="toggleTheme" />
+    <NavBar />
     <Title />
     <Form />
     <Advise />
