@@ -441,6 +441,7 @@ async function createModel() {
     await model.compile({
         optimizer: "sgd",
         loss: "binaryCrossentropy",
+        metrics: ["accuracy"],
     });
 }
 
@@ -457,12 +458,21 @@ async function trainModel() {
     const numericOutputTensor = outputTensor;
 
     const configTrain = {
-        epochs: 30,
+        epochs: 30, // Volvemos a 30
         shuffle: true,
+        validationSplit: 0.2, // Mantenemos el test de precisión
     };
 
-    await model.fit(numericInputTensor, numericOutputTensor, configTrain);
-    console.log("Model trained successfully");
+    const history = await model.fit(numericInputTensor, numericOutputTensor, configTrain);
+    
+    // tfjs guarda la precisión en history.history.acc (entrenamiento) y val_acc (validación)
+    const acc = history.history.acc ? history.history.acc[history.history.acc.length - 1] : 0;
+    const val_acc = history.history.val_acc ? history.history.val_acc[history.history.val_acc.length - 1] : 0;
+    
+    console.log("=== RESULTADOS DEL ENTRENAMIENTO ===");
+    console.log(`Precisión con datos conocidos: ${(acc * 100).toFixed(2)}%`);
+    console.log(`Precisión con datos nuevos (Validación): ${(val_acc * 100).toFixed(2)}%`);
+    console.log("======================================");
 }
 
 async function makePrediction(inputData) {
