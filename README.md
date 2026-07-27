@@ -1,5 +1,10 @@
 # Sistema Inteligente de Predicción Cardiovascular (SIPC)
 
+<div align="center">
+  <img src="./docs/hero_screenshot.png" alt="SIPC Interfaz Principal" width="800" />
+  <p><em>(Nota: Sustituye esta imagen colocando una captura de pantalla de tu app en <code>docs/hero_screenshot.png</code>)</em></p>
+</div>
+
 ## Descripción
 El Sistema Inteligente de Predicción Cardiovascular (SIPC) es una herramienta diseñada para predecir el riesgo de enfermedades cardiovasculares en pacientes utilizando algoritmos de aprendizaje automático. Este sistema utiliza datos clínicos del paciente para evaluar el riesgo y proporcionar recomendaciones preventivas.
 
@@ -23,6 +28,33 @@ El Sistema Inteligente de Predicción Cardiovascular (SIPC) es una herramienta d
 
 - **Vitest & Vue Test Utils**: Para la ejecución de pruebas unitarias y cobertura de código (*coverage*).
 ![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=white)
+
+## Arquitectura del Sistema
+
+```mermaid
+graph TD
+    A[Usuario / Paciente] -->|Introduce Datos Clínicos| B(Interfaz Vue/Nuxt)
+    B -->|Validación| C{¿Datos Válidos?}
+    C -->|No| B
+    C -->|Sí| D[TensorFlow.js Model]
+    
+    subgraph Cliente (Navegador)
+        B
+        C
+        D
+        E[Cálculo de Riesgo %]
+    end
+    
+    D -->|Inferencia| E
+    E -->|Muestra Resultados| B
+```
+
+## Rendimiento del Modelo de IA
+Durante el entrenamiento del modelo neuronal, se analizó la convergencia de la función de pérdida (Loss), demostrando un aprendizaje estable:
+
+<div align="center">
+  <img src="./grafica_perdida.png" alt="Gráfica de Entrenamiento del Modelo" width="500" />
+</div>
 
 ## Instalación
 Para instalar y ejecutar el SIPC en tu entorno local, sigue estos pasos:
