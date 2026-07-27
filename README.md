@@ -1,8 +1,7 @@
 # Sistema Inteligente de Predicción Cardiovascular (SIPC)
 
 <div align="center">
-  <img src="./docs/hero_screenshot.png" alt="SIPC Interfaz Principal" width="800" />
-  <p><em>(Nota: Sustituye esta imagen colocando una captura de pantalla de tu app en <code>docs/hero_screenshot.png</code>)</em></p>
+  <img src="./public/img/hero_screenshot.png" alt="SIPC Interfaz Principal" width="800" />
 </div>
 
 ## Descripción
