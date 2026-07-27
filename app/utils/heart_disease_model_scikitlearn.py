@@ -6,7 +6,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 import pickle
 
 # Cargar datos
-df = pd.read_csv('../content/heart_disease_dataset.csv')
+df = pd.read_csv('public/heart_disease_dataset.csv')
 
 # Diccionario de mapeos para cada característica categórica
 mapeos = {

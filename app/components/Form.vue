@@ -276,6 +276,7 @@ const theme = useState('theme');
 let inputTensor = null;
 let outputTensor = null;
 let model = null;
+let scalerParams = null;
 
 const age = ref(null);
 const gender = ref(null);
@@ -337,14 +338,32 @@ async function waitForTf() {
 onMounted(async () => {
     try {
         await waitForTf();
-        await loadData(); // Wait for data to load
-        await createModel();
-        // Check if tensors are valid before training
-        if (inputTensor && outputTensor) {
-            await trainModel();
-        } else {
-            console.error("Data loading failed, cannot train model");
+        console.log("=== STARTING MODEL BUILD ===");
+        
+        try {
+            const scalerResponse = await fetch('/model/tfjs_model/scaler_params.json');
+            if (scalerResponse.ok) {
+                scalerParams = await scalerResponse.json();
+                console.log("✅ Parámetros de escalado cargados con éxito");
+            }
+        } catch (e) {
+            console.warn("⚠️ No se pudo cargar scaler_params.json, se usará sin escalar.");
         }
+
+        const response = await fetch('/model/tfjs_model/group1-shard1of1.bin');
+        if (!response.ok) throw new Error("Failed to load binary weights");
+        const buffer = await response.arrayBuffer();
+        const float32Array = new Float32Array(buffer);
+        
+        const w1 = tf.tensor2d(float32Array.slice(0, 960), [15, 64]);
+        const b1 = tf.tensor1d(float32Array.slice(960, 1024));
+        const w2 = tf.tensor2d(float32Array.slice(1024, 1088), [64, 1]);
+        const b2 = tf.tensor1d(float32Array.slice(1088, 1089));
+        
+        model = tf.sequential();
+        model.add(tf.layers.dense({ units: 64, activation: "relu", inputShape: [15] }));
+        model.add(tf.layers.dense({ units: 1, activation: "sigmoid" }));
+        model.setWeights([w1, b1, w2, b2]);
     } catch (error) {
         console.error("Initialization error:", error);
     }
@@ -479,24 +498,34 @@ async function makePrediction(inputData) {
     console.log('variable inputData:', inputData);
 
     const inputArray = [
-        inputData.age,
-        inputData.gender,
-        inputData.cholesterol,
-        inputData.bloodPressure,
-        inputData.heartRate,
-        inputData.smoking,
-        inputData.alcoholIntake,
-        inputData.exerciseHours,
-        inputData.familyHistory,
-        inputData.diabetes,
-        inputData.obesity,
-        inputData.stressLevel,
-        inputData.bloodSugar,
-        inputData.exerciseInducedAngina,
-        inputData.chestPainType,
+        Number(inputData.age) || 0,
+        Number(inputData.gender) || 0,
+        Number(inputData.cholesterol) || 0,
+        Number(inputData.bloodPressure) || 0,
+        Number(inputData.heartRate) || 0,
+        Number(inputData.smoking) || 0,
+        Number(inputData.alcoholIntake) || 0,
+        Number(inputData.exerciseHours) || 0,
+        Number(inputData.familyHistory) || 0,
+        Number(inputData.diabetes) || 0,
+        Number(inputData.obesity) || 0,
+        Number(inputData.stressLevel) || 0,
+        Number(inputData.bloodSugar) || 0,
+        Number(inputData.exerciseInducedAngina) || 0,
+        Number(inputData.chestPainType) || 0,
     ];
 
-    const inputTensorPred = tf.tensor2d([inputArray]);
+    let scaledArray = [...inputArray];
+    if (scalerParams && scalerParams.mean && scalerParams.scale) {
+        scaledArray = inputArray.map((val, i) => {
+            return (val - scalerParams.mean[i]) / scalerParams.scale[i];
+        });
+        console.log("✅ Datos escalados aplicados:", scaledArray);
+    } else {
+        console.warn("⚠️ Usando datos sin escalar");
+    }
+
+    const inputTensorPred = tf.tensor2d([scaledArray]);
 
     let prediction = await model.predict(inputTensorPred);
     prediction.print();

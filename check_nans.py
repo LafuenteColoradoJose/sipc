@@ -1,0 +1,11 @@
+import pandas as pd
+df = pd.read_csv('public/heart_disease_dataset.csv', na_values=[])
+df['Gender'] = df['Gender'].map({'Male': 0, 'Female': 1})
+df['Smoking'] = df['Smoking'].map({'Never': 0, 'Former': 1, 'Current': 2})
+df['Alcohol Intake'] = df['Alcohol Intake'].map({'None': 0, 'Moderate': 1, 'Heavy': 2})
+df['Family History'] = df['Family History'].map({'No': 0, 'Yes': 1})
+df['Diabetes'] = df['Diabetes'].map({'No': 0, 'Yes': 1})
+df['Obesity'] = df['Obesity'].map({'No': 0, 'Yes': 1})
+df['Exercise Induced Angina'] = df['Exercise Induced Angina'].map({'No': 0, 'Yes': 1})
+df['Chest Pain Type'] = df['Chest Pain Type'].map({'Typical Angina': 0, 'Atypical Angina': 1, 'Non-anginal Pain': 2, 'Asymptomatic': 3})
+print(df.isna().sum())
