@@ -18,8 +18,8 @@
 
                     <div class="space-y-6">
                         <div class="form-control">
-                            <label class="label"><span class="label-text">Edad (años)</span></label>
-                            <input class="input" min="0" max="120" v-model="age" type="number" placeholder="Ej: 45" />
+                            <label class="label" for="age"><span class="label-text">Edad (años)</span></label>
+                            <input class="input" min="0" max="120" v-model="age" id="age" type="number" placeholder="Ej: 45" />
                         </div>
 
                         <div class="form-control">
@@ -70,8 +70,8 @@
 
                     <div class="space-y-6">
                         <div class="form-control">
-                            <label class="label"><span class="label-text">Fumador</span></label>
-                            <select class="select" v-model="smoking">
+                            <label class="label" for="smoking"><span class="label-text">Fumador</span></label>
+                            <select class="select" v-model="smoking" id="smoking">
                                 <option :value="0">Nunca</option>
                                 <option :value="1">Anteriormente</option>
                                 <option :value="2">Actualmente</option>
@@ -100,22 +100,22 @@
                         </div>
 
                         <div class="form-control">
-                            <label class="label flex justify-between">
+                            <label class="label flex justify-between" for="exerciseHours">
                                 <span class="label-text">Horas Ejercicio/Semana</span>
                                 <span class="text-xs font-bold text-[var(--color-primary)]">{{ exerciseHours || 0
                                 }}h</span>
                             </label>
-                            <input type="range" min="0" max="20" v-model="exerciseHours"
+                            <input type="range" min="0" max="20" v-model="exerciseHours" id="exerciseHours"
                                 class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-[var(--color-primary)]" />
                         </div>
 
                         <div class="form-control">
-                            <label class="label flex justify-between">
+                            <label class="label flex justify-between" for="stressLevel">
                                 <span class="label-text">Nivel de Estrés (1-10)</span>
                                 <span class="text-xs font-bold text-[var(--color-primary)]">{{ stressLevel || 1
                                 }}</span>
                             </label>
-                            <input type="range" min="1" max="10" v-model="stressLevel"
+                            <input type="range" min="1" max="10" v-model="stressLevel" id="stressLevel"
                                 class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-[var(--color-primary)]" />
                         </div>
                     </div>
@@ -132,23 +132,23 @@
                     <div class="space-y-4">
                         <div class="grid grid-cols-2 gap-4">
                             <div class="form-control">
-                                <label class="label"><span class="label-text text-xs">Colesterol</span></label>
-                                <input class="input text-sm" type="number" v-model="cholesterol" placeholder="mg/dL" />
+                                <label class="label" for="cholesterol"><span class="label-text text-xs">Colesterol</span></label>
+                                <input class="input text-sm" type="number" v-model="cholesterol" id="cholesterol" placeholder="mg/dL" />
                             </div>
                             <div class="form-control">
-                                <label class="label"><span class="label-text text-xs">Presión Art.</span></label>
-                                <input class="input text-sm" type="number" v-model="bloodPressure" placeholder="mmHg" />
+                                <label class="label" for="bloodPressure"><span class="label-text text-xs">Presión Art.</span></label>
+                                <input class="input text-sm" type="number" v-model="bloodPressure" id="bloodPressure" placeholder="mmHg" />
                             </div>
                         </div>
 
                         <div class="grid grid-cols-2 gap-4">
                             <div class="form-control">
-                                <label class="label"><span class="label-text text-xs">Frec. Cardíaca</span></label>
-                                <input class="input text-sm" type="number" v-model="heartRate" placeholder="bpm" />
+                                <label class="label" for="heartRate"><span class="label-text text-xs">Frec. Cardíaca</span></label>
+                                <input class="input text-sm" type="number" v-model="heartRate" id="heartRate" placeholder="bpm" />
                             </div>
                             <div class="form-control">
-                                <label class="label"><span class="label-text text-xs">Azúcar</span></label>
-                                <input class="input text-sm" type="number" v-model="bloodSugar" placeholder="mg/dL" />
+                                <label class="label" for="bloodSugar"><span class="label-text text-xs">Azúcar</span></label>
+                                <input class="input text-sm" type="number" v-model="bloodSugar" id="bloodSugar" placeholder="mg/dL" />
                             </div>
                         </div>
 
@@ -182,8 +182,8 @@
                         </div>
 
                         <div class="form-control">
-                            <label class="label"><span class="label-text text-xs">Tipo de Dolor</span></label>
-                            <select class="select text-sm h-10 py-0" v-model="chestPainType">
+                            <label class="label" for="chestPainType"><span class="label-text text-xs">Tipo de Dolor</span></label>
+                            <select class="select text-sm h-10 py-0" v-model="chestPainType" id="chestPainType">
                                 <option :value="0">Típica</option>
                                 <option :value="1">Atípica</option>
                                 <option :value="2">No anginal</option>
@@ -268,6 +268,9 @@ useHead({
             defer: true,
         },
     ],
+    htmlAttrs: {
+        lang: 'es'
+    }
 });
 
 const theme = useState('theme');
@@ -285,11 +288,11 @@ const bloodPressure = ref(null);
 const heartRate = ref(null);
 const smoking = ref(null);
 const alcoholIntake = ref(null);
-const exerciseHours = ref(null);
+const exerciseHours = ref(0);
 const familyHistory = ref(null);
 const diabetes = ref(null);
 const obesity = ref(null);
-const stressLevel = ref(null);
+const stressLevel = ref(1);
 const bloodSugar = ref(null);
 const exerciseInducedAngina = ref(null);
 const chestPainType = ref(null);
