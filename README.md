@@ -98,4 +98,4 @@ Para utilizar el SIPC, sigue estos pasos:
 3. Revisa la predicción visual y las métricas proporcionadas por el sistema.
 
 ## Para probarlo en línea
-Desplegado en Vercel: [SIPC](https://sipc.vercel.app/)
+Desplegado en Vercel: <a href="https://sipc.vercel.app/" target="_blank" rel="noopener noreferrer">SIPC</a>
