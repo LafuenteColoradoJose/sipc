@@ -7,7 +7,9 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@fontsource-variable/onest": "^5.2.11",
@@ -22,9 +24,14 @@
   "devDependencies": {
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/uil": "^1.1.8",
+    "@nuxt/test-utils": "^4.0.3",
     "@tailwindcss/vite": "^4.1.18",
+    "@vitest/coverage-v8": "^4.1.10",
+    "@vue/test-utils": "^2.4.11",
     "autoprefixer": "^10.4.20",
+    "happy-dom": "^20.11.1",
     "postcss": "^8.4.49",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.1.18",
+    "vitest": "^4.1.10"
   }
 }

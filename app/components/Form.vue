@@ -298,9 +298,15 @@ const exerciseInducedAngina = ref(null);
 const chestPainType = ref(null);
 const predictionResult = ref(null);
 
+/**
+ * Captura los datos del formulario y llama a la función de predicción.
+ * Valida que el modelo de TensorFlow esté cargado antes de proceder.
+ * 
+ * @returns {Promise<void>}
+ */
 async function predictHeartDisease() {
     if (!model) {
-        console.error("Model not trained yet");
+        // console.error("Model not trained yet");
         return;
     }
     await makePrediction({
@@ -322,7 +328,12 @@ async function predictHeartDisease() {
     });
 }
 
-// Function to wait for tf to be loaded
+/**
+ * Espera de forma asíncrona hasta que la librería global `window.tf` (TensorFlow.js)
+ * esté completamente cargada en el navegador.
+ * 
+ * @returns {Promise<Object>} Promesa que resuelve con la instancia de TensorFlow.
+ */
 async function waitForTf() {
     return new Promise((resolve) => {
         if (window.tf) {
@@ -341,16 +352,16 @@ async function waitForTf() {
 onMounted(async () => {
     try {
         await waitForTf();
-        console.log("=== STARTING MODEL BUILD ===");
+        // console.log("=== STARTING MODEL BUILD ===");
         
         try {
             const scalerResponse = await fetch('/model/tfjs_model/scaler_params.json');
             if (scalerResponse.ok) {
                 scalerParams = await scalerResponse.json();
-                console.log("✅ Parámetros de escalado cargados con éxito");
+                // console.log("✅ Parámetros de escalado cargados con éxito");
             }
         } catch (e) {
-            console.warn("⚠️ No se pudo cargar scaler_params.json, se usará sin escalar.");
+            // console.warn("⚠️ No se pudo cargar scaler_params.json, se usará sin escalar.");
         }
 
         const response = await fetch('/model/tfjs_model/group1-shard1of1.bin');
@@ -368,137 +379,28 @@ onMounted(async () => {
         model.add(tf.layers.dense({ units: 1, activation: "sigmoid" }));
         model.setWeights([w1, b1, w2, b2]);
     } catch (error) {
-        console.error("Initialization error:", error);
+        // console.error("Initialization error:", error);
     }
 });
 
+/**
+ * Reinicia la página para limpiar todos los campos del formulario.
+ */
 function dataReset() {
     window.location.reload();
 }
 
-async function loadData() {
-    try {
-        const response = await fetch('/heart_disease_dataset_trans.csv');
-        if (!response.ok) throw new Error("Failed to load CSV data");
 
-        const data = await response.text();
-        const rows = data.split(/\r\n|\n/).slice(1);
 
-        const processedRows = rows.map((row) => {
-            const values = row.split(",");
-            if (values.length < 16) return null; // Skip invalid rows
-            return {
-                Age: values[0],
-                Gender: values[1],
-                Cholesterol: values[2],
-                BloodPressure: values[3],
-                HeartRate: values[4],
-                Smoking: values[5],
-                AlcoholIntake: values[6],
-                ExerciseHours: values[7],
-                FamilyHistory: values[8],
-                Diabetes: values[9],
-                Obesity: values[10],
-                StressLevel: values[11],
-                BloodSugar: values[12],
-                ExerciseInducedAngina: values[13],
-                ChestPainType: values[14],
-                HeartDisease: values[15],
-            };
-        }).filter(r => r !== null);
-
-        const inputs = processedRows
-            .map((row) => [
-                parseFloat(row.Age),
-                parseFloat(row.Gender),
-                parseFloat(row.Cholesterol),
-                parseFloat(row.BloodPressure),
-                parseFloat(row.HeartRate),
-                parseFloat(row.Smoking),
-                parseFloat(row.AlcoholIntake),
-                parseFloat(row.ExerciseHours),
-                parseFloat(row.FamilyHistory),
-                parseFloat(row.Diabetes),
-                parseFloat(row.Obesity),
-                parseFloat(row.StressLevel),
-                parseFloat(row.BloodSugar),
-                parseFloat(row.ExerciseInducedAngina),
-                parseFloat(row.ChestPainType),
-            ])
-            .filter((row) => row.every((value) => !isNaN(value)));
-
-        const outputs = processedRows
-            .map((row) => [parseFloat(row.HeartDisease)])
-            .filter((output) => !isNaN(output[0]));
-
-        if (inputs.length === 0 || outputs.length === 0) {
-            console.error("No valid data found in CSV");
-            return;
-        }
-
-        inputTensor = tf.tensor2d(inputs);
-        outputTensor = tf.tensor2d(outputs);
-    } catch (e) {
-        console.error("Error loading data:", e);
-    }
-}
-
-async function createModel() {
-    model = tf.sequential();
-    const hidden = tf.layers.dense({
-        units: 10,
-        inputShape: [15],
-        activation: "tanh",
-    });
-
-    model.add(hidden);
-
-    const output = tf.layers.dense({
-        units: 1,
-        activation: "sigmoid",
-    });
-
-    model.add(output);
-
-    await model.compile({
-        optimizer: "sgd",
-        loss: "binaryCrossentropy",
-        metrics: ["accuracy"],
-    });
-}
-
-async function trainModel() {
-    if (!inputTensor || !outputTensor) {
-        console.error("trainModel: inputTensor or outputTensor is undefined or null");
-        return;
-    }
-
-    // Direct usage since they are already numbers
-    // Note: If you really wanted to create new tensors, you can, but typically you fit directly on existing tensors
-    // However, keeping closer to original logic without the missing function:
-    const numericInputTensor = inputTensor;
-    const numericOutputTensor = outputTensor;
-
-    const configTrain = {
-        epochs: 30, // Volvemos a 30
-        shuffle: true,
-        validationSplit: 0.2, // Mantenemos el test de precisión
-    };
-
-    const history = await model.fit(numericInputTensor, numericOutputTensor, configTrain);
-    
-    // tfjs guarda la precisión en history.history.acc (entrenamiento) y val_acc (validación)
-    const acc = history.history.acc ? history.history.acc[history.history.acc.length - 1] : 0;
-    const val_acc = history.history.val_acc ? history.history.val_acc[history.history.val_acc.length - 1] : 0;
-    
-    console.log("=== RESULTADOS DEL ENTRENAMIENTO ===");
-    console.log(`Precisión con datos conocidos: ${(acc * 100).toFixed(2)}%`);
-    console.log(`Precisión con datos nuevos (Validación): ${(val_acc * 100).toFixed(2)}%`);
-    console.log("======================================");
-}
-
+/**
+ * Recibe los datos del usuario, los escala usando los parámetros guardados,
+ * y realiza una predicción utilizando el modelo de TensorFlow.js cargado.
+ * 
+ * @param {Object} inputData - Un objeto con los datos clínicos y de estilo de vida del usuario.
+ * @returns {Promise<void>}
+ */
 async function makePrediction(inputData) {
-    console.log('variable inputData:', inputData);
+    // console.log('variable inputData:', inputData);
 
     const inputArray = [
         Number(inputData.age) || 0,
@@ -523,15 +425,15 @@ async function makePrediction(inputData) {
         scaledArray = inputArray.map((val, i) => {
             return (val - scalerParams.mean[i]) / scalerParams.scale[i];
         });
-        console.log("✅ Datos escalados aplicados:", scaledArray);
+        // console.log("✅ Datos escalados aplicados:", scaledArray);
     } else {
-        console.warn("⚠️ Usando datos sin escalar");
+        // console.warn("⚠️ Usando datos sin escalar");
     }
 
     const inputTensorPred = tf.tensor2d([scaledArray]);
 
     let prediction = await model.predict(inputTensorPred);
-    prediction.print();
+    // prediction.print();
 
     const predictionValue = (prediction.arraySync()[0][0] * 100).toFixed(0);
     predictionResult.value = predictionValue;

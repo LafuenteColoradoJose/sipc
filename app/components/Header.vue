@@ -22,13 +22,17 @@
   </header>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, watchEffect, onMounted } from 'vue';
 import { useAppTheme } from '~/composables/useAppTheme';
 
 const appTheme = useAppTheme();
 const isDark = ref(appTheme.value === 'dark');
 
+/**
+ * Alterna el tema de la aplicación entre modo claro ('light') y oscuro ('dark').
+ * Guarda la preferencia en el `localStorage` para persistencia.
+ */
 const toggleTheme = () => {
   const newTheme = appTheme.value === 'dark' ? 'light' : 'dark';
   appTheme.value = newTheme;
@@ -39,17 +43,17 @@ const toggleTheme = () => {
 
 onMounted(() => {
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  console.log("🎨 Sistema prefiere dark:", prefersDark);
+  // console.log("🎨 Sistema prefiere dark:", prefersDark);
 
   if (localStorage.getItem('theme')) {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark' || savedTheme === 'light') {
-      console.log("📦 Usando tema guardado:", savedTheme);
+      // console.log("📦 Usando tema guardado:", savedTheme);
       appTheme.value = savedTheme;
     }
   } else {
     const detectedTheme = prefersDark ? 'dark' : 'light';
-    console.log("🔍 Detectado tema del sistema:", detectedTheme);
+    // console.log("🔍 Detectado tema del sistema:", detectedTheme);
     appTheme.value = detectedTheme;
     localStorage.setItem('theme', appTheme.value);
   }
