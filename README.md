@@ -37,7 +37,7 @@ graph TD
     C -->|No| B
     C -->|Sí| D[TensorFlow.js Model]
     
-    subgraph Cliente (Navegador)
+    subgraph Navegador
         B
         C
         D
