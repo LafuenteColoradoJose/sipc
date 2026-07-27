@@ -21,6 +21,9 @@ El Sistema Inteligente de Predicción Cardiovascular (SIPC) es una herramienta d
 
 - [Heart Disease prediction](https://www.kaggle.com/datasets/rashadrmammadov/heart-disease-prediction?resource=download)
 
+- **Vitest & Vue Test Utils**: Para la ejecución de pruebas unitarias y cobertura de código (*coverage*).
+![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=white)
+
 ## Instalación
 Para instalar y ejecutar el SIPC en tu entorno local, sigue estos pasos:
 
@@ -45,6 +48,18 @@ npm run dev
 http://localhost:3000/
 ```
 
+## Pruebas (Testing) y Cobertura (Coverage)
+El proyecto cuenta con pruebas unitarias implementadas con **Vitest**. Para ejecutar la batería de pruebas y comprobar que todos los componentes se renderizan e interactúan correctamente:
+
+```bash
+npm run test
+```
+
+Para generar un reporte de cobertura de código (Code Coverage) utilizando el motor `v8`:
+
+```bash
+npm run coverage
+```
 ## Uso
 Para utilizar el SIPC, sigue estos pasos:
 1. Ingresa los datos clínicos del paciente utilizando los formularios interactivos.
