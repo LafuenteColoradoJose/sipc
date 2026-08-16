@@ -2,13 +2,16 @@
   "name": "iscp",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "test": "vitest",
+    "test": "vitest run",
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
